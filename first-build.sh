@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 SOURCE=${BASH_SOURCE[0]}
 while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
   DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
@@ -10,4 +12,8 @@ DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
 
 cd $DIR >/dev/null 2>&1
 
-sudo nixos-rebuild switch --flake .#os --impure
+nixos-generate-config --show-hardware-config > ./hardware-configuration.nix
+
+git add hardware-configuration.nix
+
+./rebuild-switch.sh
