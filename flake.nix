@@ -10,9 +10,12 @@
     lib = nixpkgs.lib;
   in{
     nixosConfigurations = {
-      nixos-fekete = lib.nixosSystem{
+      os = lib.nixosSystem{
         system = "x86_64-linux";
-	modules = [ ./configuration.nix];
+	modules = [ 
+	  ./configuration.nix
+	  ./pc-specific.nix
+        ];
       };
     };
   };
