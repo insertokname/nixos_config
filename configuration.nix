@@ -93,6 +93,8 @@
     ];
   };
 
+  xdg.sounds.enable = false;
+
   environment.systemPackages = with pkgs; [
     alacritty
     dmenu
@@ -115,7 +117,11 @@
     vscode
     fish
     gh #github cli
-  ];
+    git-credential-manager 
+    dotnet-runtime_7
+    dotnet-aspnetcore_7
+    dotnet-sdk_7
+];
 
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = ["ShareTechMono"];})
