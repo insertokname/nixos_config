@@ -1,6 +1,6 @@
 ## My nixos config
 
-i am using this on multiple devices, all of them having different requirements so that's what the "pc-specific.nix" file is.
+i am using this on multiple devices, all of them having different requirements so that's what the `pc-specific.nix` file is.
 
 ## Running and config
 
