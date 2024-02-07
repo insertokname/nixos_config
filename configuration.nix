@@ -16,7 +16,7 @@
       allowedTCPPorts = [];
       allowedUDPPorts = [];
     };
-    hostName = "nixos-fekete";
+    hostName = "nixos-default";
     networkmanager.enable = true;
   };
 
@@ -89,8 +89,7 @@
     description = "fekete";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      brave
-      xarchiver
+      #xarchiver
     ];
   };
 
@@ -116,6 +115,10 @@
     vscode
     fish
     gh #github cli
+  ];
+
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = ["ShareTechMono"];})
   ];
 
   programs = {
