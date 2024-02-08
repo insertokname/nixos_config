@@ -118,10 +118,16 @@
     fish
     gh #github cli
     git-credential-manager 
-    dotnet-runtime_7
-    dotnet-aspnetcore_7
+    #dotnet-runtime_7
+    #dotnet-aspnetcore_7
+    #dotnetCorePackages.aspnetcore_7_0
+    #dotnetCorePackages.runtime_7_0
+    #dotnetCorePackages.sdk_7_0
     dotnet-sdk_7
-];
+
+    gnupg
+    pass
+  ];
 
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = ["ShareTechMono"];})
