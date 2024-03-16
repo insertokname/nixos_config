@@ -16,5 +16,5 @@ first time building the system (so that you automatically generate a default har
 
 on subsequent rebuilds use:
 ```
-./rebuild-switch.sh
+sudo ./rebuild-switch.sh
 ```
