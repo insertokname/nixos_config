@@ -116,17 +116,20 @@
     gcc
     vscode
     fish
-    gh #github cli
-    git-credential-manager 
+    github-desktop
+    #gh #github cli
+    #git-credential-manager 
     #dotnet-runtime_7
     #dotnet-aspnetcore_7
     #dotnetCorePackages.aspnetcore_7_0
     #dotnetCorePackages.runtime_7_0
     #dotnetCorePackages.sdk_7_0
-    dotnet-sdk_7
+    #dotnet-sdk_7
 
-    gnupg
-    pass
+    #gnupg
+    #pass
+    #pinentry
+    #pinentry-curses
   ];
 
   fonts.packages = with pkgs; [
