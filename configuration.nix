@@ -37,6 +37,7 @@
 
   sound.enable = true;
   time.hardwareClockInLocalTime = true;
+  time.timeZone = "Europe/Bucharest";
 
   services = {
     xserver = {
