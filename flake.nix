@@ -8,13 +8,19 @@
   outputs = { self, nixpkgs, ...}:
   let
     lib = nixpkgs.lib;
+    hardware_path = (./hardware + "/${
+      let dev = (import ./cur_device.nix); 
+      in 
+        if dev.device=="" then throw "'device' attribute has been set to an empty string or doesn't exist " 
+        else dev.device
+      }/load_hardware.nix");
   in{
     nixosConfigurations = {
-      os = lib.nixosSystem{
+      fekete = lib.nixosSystem{
         system = "x86_64-linux";
-	modules = [ 
-	  ./configuration.nix
-	  ./pc-specific.nix
+      	modules = [ 
+	        ./configurations/fekete/configuration.nix
+          hardware_path
         ];
       };
     };
