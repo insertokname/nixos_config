@@ -17,6 +17,7 @@ Requirements:
 
 ```
 git clone https://github.com/insertokername/nixos_config.git
+cd nixos_config
 ```
 
 *Now you have to copy over your harware settings*
