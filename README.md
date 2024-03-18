@@ -47,4 +47,6 @@ That's all! We are going to rebuild our system using:
 sudo nixos-rebuild switch --flake .#{SELECTED CONFIGURATION} --impure
 ```
 
-on subsequent rebuilds the same command is required. If you want to switch configurations just change the {SELECTED CONFIGURATION} to whatever you want
+On subsequent rebuilds the same command is required. If you want to switch configurations just change the {SELECTED CONFIGURATION} to whatever you want.
+
+**Important: when first booting up a custom config a user named "test" will be provided, this users password is also "test" and it is defined in plain text under `hardware/example/users.nix`, this i very unsafe for obvious reasons! If you are planning on actually using this config please make sure to delete this user and define your own WITHOUT specifing the password in plain text. Read about it [here](https://nlewo.github.io/nixos-manual-sphinx/configuration/user-mgmt.xml.html).**

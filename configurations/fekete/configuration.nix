@@ -75,15 +75,6 @@
     };
   };
 
-  users.users.fekete= {
-    isNormalUser = true;
-    description = "fekete";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      #xarchiver
-    ];
-  };
-
   xdg.sounds.enable = false;
 
   environment.systemPackages = with pkgs; [
