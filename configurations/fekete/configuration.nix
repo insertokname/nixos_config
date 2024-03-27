@@ -99,6 +99,9 @@
     vscode
     fish
     github-desktop
+    
+    polybar
+    htop
     #gh #github cli
     #git-credential-manager 
     #dotnet-runtime_7
@@ -116,6 +119,8 @@
 
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = ["ShareTechMono"];})
+    iosevka
+    font-awesome_5
   ];
 
   programs = {
