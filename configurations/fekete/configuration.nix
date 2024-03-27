@@ -102,6 +102,8 @@
     
     polybar
     htop
+
+    xdg-utils
     #gh #github cli
     #git-credential-manager 
     #dotnet-runtime_7
