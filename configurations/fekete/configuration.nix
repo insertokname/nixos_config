@@ -99,11 +99,15 @@
     vscode
     fish
     github-desktop
-    
-    polybar
+   
+    stow
+
+    (polybar.override { i3Support = true; }) 
     htop
 
     xdg-utils
+
+    jsoncpp
     #gh #github cli
     #git-credential-manager 
     #dotnet-runtime_7
