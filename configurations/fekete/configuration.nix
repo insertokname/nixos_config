@@ -30,6 +30,15 @@
   time.timeZone = "Europe/Bucharest";
 
   services = {
+    picom = {
+      backend = "glx";
+      enable = true;
+      opacityRules = [ "87:class_g = 'Alacritty'" ];
+      settings = {blur =
+      { method = "dual_kawase";
+        strength = 6;
+      };};
+    };
     xserver = {
       layout = "us";
       xkbVariant = "";
@@ -49,7 +58,7 @@
         };
       };
       displayManager = {
-        lightdm.enable = true;
+        #lightdm.enable = true;
         defaultSession = "xfce+i3";
       };
     };
@@ -86,7 +95,6 @@
     networkmanagerapplet
     nitrogen
     pasystray
-    picom
     polkit_gnome
     pulseaudioFull
     rofi

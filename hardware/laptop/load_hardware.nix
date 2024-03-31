@@ -4,5 +4,6 @@
     ./boot.nix
     ./hardware-configuration.nix
     ./users.nix
+    ./amd_drivers.nix
   ];
 }
