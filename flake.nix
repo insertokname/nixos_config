@@ -9,10 +9,10 @@
   let
     lib = nixpkgs.lib;
     hardware_path = (./hardware + "/${
-      let dev = (import ./cur_device.nix); 
+      let dev = builtins.readFile ./cur_hardware; 
       in 
-        if dev.device=="" then throw "'device' attribute has been set to an empty string or doesn't exist " 
-        else dev.device
+        if dev=="" then throw "'cur_hardware'has been set" 
+        else dev
       }/load_hardware.nix");
   in{
     nixosConfigurations = {

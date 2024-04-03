@@ -8,8 +8,6 @@
     extraGroups = [ "networkmanager" "wheel" ];
     initialPassword="test";
     packages = with pkgs; [
-      firefox
-    #  thunderbird
     ];
   };
 }

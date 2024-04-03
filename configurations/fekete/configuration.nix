@@ -30,6 +30,7 @@
   time.timeZone = "Europe/Bucharest";
 
   services = {
+    illum.enable = true;
     picom = {
       backend = "glx";
       enable = true;
@@ -46,7 +47,6 @@
       windowManager.i3 = {
         enable = true;
         extraPackages = with pkgs; [
-          i3status
         ];
       };
       desktopManager = {
@@ -58,7 +58,7 @@
         };
       };
       displayManager = {
-        #lightdm.enable = true;
+        lightdm.enable = true;
         defaultSession = "xfce+i3";
       };
     };
