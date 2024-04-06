@@ -10,8 +10,12 @@ set -euo pipefail
 cd ./dotfiles
 
 case $1 in
-    fekete)
+  ferenti)
     nix-build dotfiles.nix --argstr replacements "VARS_DISPLAY_PORT eDP"
+    ;;
+
+  fekete)
+    nix-build dotfiles.nix --argstr replacements "VARS_DISPLAY_PORT DP-0"
     ;;
 
   *)
