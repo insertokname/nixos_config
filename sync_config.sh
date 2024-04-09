@@ -11,11 +11,18 @@ cd ./dotfiles
 
 case $1 in
   ferenti)
-    nix-build dotfiles.nix --argstr replacements "VARS_DISPLAY_PORT eDP"
+    nix-build dotfiles.nix --argstr replacements \
+    "VARS_POLYBAR_DISPLAY_PORT eDP
+    VARS_POLYBAR_FONT_SIZE_0 15
+    VARS_POLYBAR_FONT_SIZE_1 16"
+    
     ;;
 
   fekete)
-    nix-build dotfiles.nix --argstr replacements "VARS_DISPLAY_PORT DP-0"
+    nix-build dotfiles.nix --argstr replacements \
+    "VARS_POLYBAR_DISPLAY_PORT DP-0
+    VARS_POLYBAR_FONT_SIZE_0 11
+    VARS_POLYBAR_FONT_SIZE_1 12"
     ;;
 
   *)
