@@ -86,6 +86,9 @@
 
   xdg.sounds.enable = false;
 
+  #docker daemon
+  virtualisation.docker.enable = true;
+
   environment.systemPackages = with pkgs; [
     alacritty
     dmenu
