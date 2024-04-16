@@ -140,6 +140,8 @@
     font-awesome_5
   ];
 
+  users.mutableUsers = true;
+
   programs = {
     thunar.enable = true;
     dconf.enable = true;

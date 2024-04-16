@@ -1,7 +1,5 @@
 { config, pkgs, ... }:
-{
-  users.mutableUsers = true;
-  
+{  
   users.users.ferenti = {
     isNormalUser = true;
     description = "ferenti";
