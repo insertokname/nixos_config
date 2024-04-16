@@ -1,2 +1,5 @@
 [shell]
 program = "fish"
+
+[font]
+size = 15
