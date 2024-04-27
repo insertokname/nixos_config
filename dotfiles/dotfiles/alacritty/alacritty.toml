@@ -2,4 +2,4 @@
 program = "fish"
 
 [font]
-size = 15
+size =  VARS_ALACRITTY_FONT

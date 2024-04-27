@@ -121,6 +121,8 @@
     jsoncpp
 
     smile
+
+    spectacle
     #gh #github cli
     #git-credential-manager 
     #dotnet-runtime_7

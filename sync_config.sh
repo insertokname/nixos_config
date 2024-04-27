@@ -14,7 +14,8 @@ case $1 in
     nix-build dotfiles.nix --argstr replacements \
     "VARS_POLYBAR_DISPLAY_PORT eDP
     VARS_POLYBAR_FONT_SIZE_0 15
-    VARS_POLYBAR_FONT_SIZE_1 16"
+    VARS_POLYBAR_FONT_SIZE_1 16
+    VARS_ALACRITTY_FONT 12"
     
     ;;
 
@@ -22,7 +23,8 @@ case $1 in
     nix-build dotfiles.nix --argstr replacements \
     "VARS_POLYBAR_DISPLAY_PORT DP-0
     VARS_POLYBAR_FONT_SIZE_0 11
-    VARS_POLYBAR_FONT_SIZE_1 12"
+    VARS_POLYBAR_FONT_SIZE_1 12
+    VARS_ALACRITTY_FONT 15"
     ;;
 
   *)
