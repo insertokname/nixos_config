@@ -123,7 +123,9 @@
     smile
 
     spectacle
-    #gh #github cli
+
+    remmina
+    gh #github cli
     #git-credential-manager 
     #dotnet-runtime_7
     #dotnet-aspnetcore_7
