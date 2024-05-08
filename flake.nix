@@ -20,6 +20,7 @@
         system = "x86_64-linux";
       	modules = [ 
 	        ./configurations/fekete/configuration.nix
+          ./configurations/fekete/custom_pkgs.nix
           hardware_path
         ];
       };

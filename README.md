@@ -55,6 +55,8 @@ sudo nixos-rebuild switch --flake path:.#{SELECTED CONFIGURATION} --impure
 
 On subsequent rebuilds the same command is required. If you want to switch configurations just change the {SELECTED CONFIGURATION} to whatever you want.
 
+**for faster builds comment out `./configurations/fekete/custom_pkgs.nix` from `flake.nix` this disables some custom packages i built for myself**
+
 **IMPORTANT: when first booting up a custom config a user named "test" will be provided, this users password is also "test" and it is defined in plain text under `hardware/example/users.nix`, this i very unsafe for obvious reasons! If you are planning on actually using this config please make sure to delete this user and define your own WITHOUT specifing the password in plain text. Read about it [here](https://nlewo.github.io/nixos-manual-sphinx/configuration/user-mgmt.xml.html).**
 
 **VERY IMPORTANT: the "test" user overwrites any users in your current nixos instalation so you should copy over your previous user from `/etc/nixos/configuration.nix` to `hardware/example/users.nix`**
