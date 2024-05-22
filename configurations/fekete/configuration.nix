@@ -151,6 +151,7 @@
   programs = {
     thunar.enable = true;
     dconf.enable = true;
+    gnupg.agent.enable = true;
   };
 
   security = {
