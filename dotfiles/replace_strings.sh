@@ -2,9 +2,6 @@
 # nix-shell -i bash -p bash stow findutils file moreutils
 
 
-#from="RETARD"
-#to="NOT_RETARD"
-
 set -euo pipefail
 
 
