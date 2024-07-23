@@ -1,5 +1,9 @@
 { config, pkgs, ... }:
 {
+  
+  # linux driver
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   networking = {
     firewall = {
       enable = true;
