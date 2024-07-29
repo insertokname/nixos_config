@@ -94,6 +94,8 @@
   virtualisation.docker.enable = true;
 
   environment.systemPackages = with pkgs; [
+    home-manager
+    vesktop
     alacritty
     dmenu
     git

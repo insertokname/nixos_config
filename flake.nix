@@ -2,28 +2,45 @@
   description = "OS config";
 
   inputs = {
-    nixpgs.url = "github:NixOs/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, ...}:
+  outputs = { self, nixpkgs, home-manager, ...}:
   let
-    lib = nixpkgs.lib;
-    hardware_path = (./hardware + "/${
-      let dev = builtins.readFile ./cur_hardware; 
-      in 
-        if dev=="" then throw "'cur_hardware'has been set" 
-        else dev
-      }/load_hardware.nix");
-  in{
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+  in
+  {
     nixosConfigurations = {
-      fekete = lib.nixosSystem{
+      fekete = nixpkgs.lib.nixosSystem{
         system = "x86_64-linux";
       	modules = [ 
 	        ./configurations/fekete/configuration.nix
           ./configurations/fekete/custom_pkgs.nix
-          hardware_path
+          ./hardware/desktop/load_hardware.nix
         ];
       };
+
+      ferenti = nixpkgs.lib.nixosSystem{
+        system = "x86_64-linux";
+      	modules = [ 
+	        ./configurations/fekete/configuration.nix
+          ./configurations/fekete/custom_pkgs.nix
+          ./hardware/laptop/load_hardware.nix
+        ];
+      };
+    };
+
+    homeConfigurations."ferenti" = home-manager.lib.homeManagerConfiguration {
+      pkgs = pkgs;
+      # extraSpecialArgs = {...};
+      modules = [
+        ./home-manager/ferenti/home.nix
+      ];
     };
   };
 }
