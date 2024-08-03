@@ -9,38 +9,45 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ...}:
-  let
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+    let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-  in
-  {
-    nixosConfigurations = {
-      fekete = nixpkgs.lib.nixosSystem{
-        system = "x86_64-linux";
-      	modules = [ 
-	        ./configurations/fekete/configuration.nix
-          ./configurations/fekete/custom_pkgs.nix
-          ./hardware/desktop/load_hardware.nix
-        ];
+    in {
+      nixosConfigurations = {
+        fekete = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs system; };
+          modules = [
+            ./configurations/fekete/configuration.nix
+            ./configurations/fekete/custom_pkgs.nix
+            ./hardware/desktop/load_hardware.nix
+            ./home-manager/fekete/load_home.nix
+          ];
+        };
+
+        ferenti = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs system; };
+          modules = [
+            ./configurations/fekete/configuration.nix
+            ./configurations/fekete/custom_pkgs.nix
+            ./hardware/laptop/load_hardware.nix
+            ./home-manager/fekete/load_home.nix
+          ];
+        };
       };
 
-      ferenti = nixpkgs.lib.nixosSystem{
-        system = "x86_64-linux";
-      	modules = [ 
-	        ./configurations/fekete/configuration.nix
-          ./configurations/fekete/custom_pkgs.nix
-          ./hardware/laptop/load_hardware.nix
-        ];
+      homeConfigurations."ferenti" = home-manager.lib.homeManagerConfiguration {
+        pkgs = pkgs;
+        # extraSpecialArgs = {...};
+        modules = [ ./home-manager/ferenti/home.nix ];
+      };
+
+      homeConfigurations."fekete" = home-manager.lib.homeManagerConfiguration {
+        pkgs = pkgs;
+        # extraSpecialArgs = {...};
+        modules = [ ./home-manager/fekete/home.nix ];
       };
     };
-
-    homeConfigurations."ferenti" = home-manager.lib.homeManagerConfiguration {
-      pkgs = pkgs;
-      # extraSpecialArgs = {...};
-      modules = [
-        ./home-manager/ferenti/home.nix
-      ];
-    };
-  };
 }
