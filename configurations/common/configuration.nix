@@ -69,7 +69,6 @@
     python3
     gcc
     vscode
-    # fish
     github-desktop
 
     stow
