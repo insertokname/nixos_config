@@ -1,8 +1,5 @@
-{ config, pkgs, ... }:
-{
-  imports = [
-    ./desktop_environment.nix
-  ];
+{ config, pkgs, ... }: {
+  imports = [ ./desktop_environment.nix ];
 
   # linux driver
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -10,8 +7,8 @@
   networking = {
     firewall = {
       enable = true;
-      allowedTCPPorts = [];
-      allowedUDPPorts = [];
+      allowedTCPPorts = [ ];
+      allowedUDPPorts = [ ];
     };
     hostName = "nixos-default";
     networkmanager.enable = true;
@@ -29,14 +26,14 @@
     LC_PAPER = "ro_RO.UTF-8";
     LC_TELEPHONE = "ro_RO.UTF-8";
     LC_TIME = "ro_RO.UTF-8";
-    LC_CTYPE="en_US.utf8"; # required by dmenu don't change this
+    LC_CTYPE = "en_US.utf8"; # required by dmenu don't change this
   };
 
   # sound.enable = true;
   time.hardwareClockInLocalTime = true;
   time.timeZone = "Europe/Bucharest";
 
-  nix.settings.experimental-features = [ "nix-command" "flakes"];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixpkgs = {
     config = {
@@ -74,10 +71,10 @@
     vscode
     # fish
     github-desktop
-   
+
     stow
 
-    (polybar.override { i3Support = true; }) 
+    (polybar.override { i3Support = true; })
     htop
 
     xdg-utils
@@ -89,7 +86,7 @@
     spectacle
 
     remmina
-    gh #github cli
+    gh # github cli
     #git-credential-manager 
     #dotnet-runtime_7
     #dotnet-aspnetcore_7
@@ -105,7 +102,7 @@
   ];
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = ["ShareTechMono"];})
+    (nerdfonts.override { fonts = [ "ShareTechMono" ]; })
     iosevka
     font-awesome_5
   ];
@@ -139,10 +136,8 @@
       };
     };
   };
-  
-  hardware = {
-    bluetooth.enable = true;
-  };
+
+  hardware = { bluetooth.enable = true; };
 
   system.stateVersion = "23.05";
 }

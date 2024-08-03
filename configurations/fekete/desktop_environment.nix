@@ -1,15 +1,16 @@
-{ pkgs, ...}:
-{
+{ pkgs, ... }: {
   services = {
     illum.enable = true;
     picom = {
       backend = "glx";
       enable = true;
       opacityRules = [ "87:class_g = 'Alacritty'" ];
-      settings = {blur =
-      { method = "dual_kawase";
-        strength = 6;
-      };};
+      settings = {
+        blur = {
+          method = "dual_kawase";
+          strength = 6;
+        };
+      };
     };
     xserver = {
       layout = "us";
@@ -17,8 +18,7 @@
       enable = true;
       windowManager.i3 = {
         enable = true;
-        extraPackages = with pkgs; [
-        ];
+        extraPackages = with pkgs; [ ];
       };
       desktopManager = {
         xterm.enable = false;

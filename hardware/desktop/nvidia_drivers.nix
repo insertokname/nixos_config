@@ -1,26 +1,25 @@
-{ config, pkgs,... }:
-{
-  hardware.opengl={
-     enable = true;
-   #   driSupport = true;
-     driSupport32Bit = true;
+{ config, pkgs, ... }: {
+  hardware.opengl = {
+    enable = true;
+    #   driSupport = true;
+    driSupport32Bit = true;
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
-  
+  services.xserver.videoDrivers = [ "nvidia" ];
+
   hardware.nvidia = {
-     modesetting.enable = true;
+    modesetting.enable = true;
 
-     powerManagement.enable = false;
-     powerManagement.finegrained = false;
-     
-     open = false;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
 
-     # Enable the Nvidia settings menu,
-     # accessible via `nvidia-settings`.
-     nvidiaSettings = true;
+    open = false;
 
-     package = config.boot.kernelPackages.nvidiaPackages.beta;
+    # Enable the Nvidia settings menu,
+    # accessible via `nvidia-settings`.
+    nvidiaSettings = true;
+
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 }
 

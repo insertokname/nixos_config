@@ -1,8 +1,7 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   users.mutableUsers = true;
-  
-  users.users.test= {
+
+  users.users.test = {
     isNormalUser = true;
     description = "test";
     extraGroups = [ "networkmanager" "wheel" ];
