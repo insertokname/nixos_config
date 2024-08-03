@@ -1,5 +1,0 @@
-[shell]
-program = "fish"
-
-[font]
-size =  VARS_ALACRITTY_FONT

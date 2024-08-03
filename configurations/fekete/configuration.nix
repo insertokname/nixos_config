@@ -29,7 +29,7 @@
     LC_CTYPE="en_US.utf8"; # required by dmenu don't change this
   };
 
-  sound.enable = true;
+  # sound.enable = true;
   time.hardwareClockInLocalTime = true;
   time.timeZone = "Europe/Bucharest";
 
@@ -96,7 +96,7 @@
   environment.systemPackages = with pkgs; [
     home-manager
     vesktop
-    alacritty
+    # alacritty
     dmenu
     git
     gnome.gnome-keyring
@@ -114,7 +114,7 @@
     python3
     gcc
     vscode
-    fish
+    # fish
     github-desktop
    
     stow
