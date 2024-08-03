@@ -19,8 +19,8 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs system; };
           modules = [
-            ./configurations/fekete/configuration.nix
-            ./configurations/fekete/custom_pkgs.nix
+            ./configurations/common/configuration.nix
+            ./configurations/common/custom_pkgs.nix
             ./hardware/desktop/load_hardware.nix
             ./home-manager/fekete/load_home.nix
           ];
@@ -30,8 +30,8 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs system; };
           modules = [
-            ./configurations/fekete/configuration.nix
-            ./configurations/fekete/custom_pkgs.nix
+            ./configurations/common/configuration.nix
+            ./configurations/common/custom_pkgs.nix
             ./hardware/laptop/load_hardware.nix
             ./home-manager/fekete/load_home.nix
           ];
