@@ -68,7 +68,7 @@
     firefox
     python3
     gcc
-    vscode
+    # vscode
     github-desktop
 
     stow
