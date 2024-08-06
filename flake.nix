@@ -33,7 +33,7 @@
             ./configurations/common/configuration.nix
             ./configurations/common/custom_pkgs.nix
             ./hardware/laptop/load_hardware.nix
-            ./home-manager/fekete/load_home.nix
+            ./home-manager/ferenti/load_home.nix
           ];
         };
       };
