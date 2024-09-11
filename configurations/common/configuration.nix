@@ -4,11 +4,14 @@
   # linux driver
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  programs.adb.enable = true;
+  users.users.fekete.extraGroups = ["adbusers"];
+
   networking = {
     firewall = {
       enable = true;
-      allowedTCPPorts = [ ];
-      allowedUDPPorts = [ ];
+      allowedTCPPorts = [ 3000 ];
+      allowedUDPPorts = [ 3000 ];
     };
     hostName = "nixos-default";
     networkmanager.enable = true;

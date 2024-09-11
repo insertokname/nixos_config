@@ -15,9 +15,11 @@
     };
 
     xserver = {
+      exportConfiguration = true;
       enable = true;
-      layout = "us";
-      xkbVariant = "";
+      layout = "us,ro";
+      xkbVariant = ",std";
+      xkbOptions = "grp:alt_shift_toggle";
       windowManager.i3 = {
         enable = true;
         extraPackages = with pkgs; [ ];
@@ -30,14 +32,14 @@
           enableXfwm = false;
         };
       };
-      # displayManager = {
-      #   lightdm.enable = true;
-      #   defaultSession = "xfce+i3";
-      # };
-      displayManager.gdm = {
-        enable = true;
-        wayland = true;
+      displayManager = {
+        lightdm.enable = true;
+        # defaultSession = "xfce+i3";
       };
+      # displayManager.gdm = {
+      #   enable = true;
+      #   wayland = true;
+      # };
       # displayManager.defaultSession = "wayland"
     };
     dbus.enable = true;
