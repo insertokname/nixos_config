@@ -5,7 +5,6 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   programs.adb.enable = true;
-  users.users.fekete.extraGroups = ["adbusers"];
 
   networking = {
     firewall = {
