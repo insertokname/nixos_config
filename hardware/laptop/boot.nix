@@ -7,6 +7,7 @@
       theme = "vimix";
       footer = true;
       screen = "2k";
+      splashImage = ../../backgrounds/background.png;
     };
     grub = {
       enable = true;
@@ -15,6 +16,7 @@
       devices = [ "nodev" ];
       useOSProber = true;
     };
+    timeout = 10;
   };
 
 }
