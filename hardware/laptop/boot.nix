@@ -1,5 +1,4 @@
 { ... }: {
-  # boot.loader.systemd-boot.enable = true;
   boot.loader = {
     efi.canTouchEfiVariables = true;
     grub2-theme = {
@@ -18,5 +17,4 @@
     };
     timeout = 10;
   };
-
 }
