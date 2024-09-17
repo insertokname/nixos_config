@@ -7,9 +7,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    grub2-themes = { url = "github:vinceliuice/grub2-themes"; };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, grub2-themes, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -23,6 +24,7 @@
             ./configurations/common/custom_pkgs.nix
             ./hardware/desktop/load_hardware.nix
             ./home-manager/fekete/load_home.nix
+            grub2-themes.nixosModules.default
           ];
         };
 
@@ -34,6 +36,7 @@
             ./configurations/common/custom_pkgs.nix
             ./hardware/laptop/load_hardware.nix
             ./home-manager/ferenti/load_home.nix
+            grub2-themes.nixosModules.default
           ];
         };
       };
