@@ -17,9 +17,11 @@
     xserver = {
       exportConfiguration = true;
       enable = true;
-      layout = "us,ro";
-      xkbVariant = ",std";
-      xkbOptions = "grp:alt_shift_toggle";
+      xkb = {
+        layout = "us,ro";
+        variant = ",std";
+        options = "grp:alt_shift_toggle";
+      };
       windowManager.i3 = {
         enable = true;
         extraPackages = with pkgs; [ ];
@@ -63,8 +65,8 @@
 
   environment.systemPackages = with pkgs; [
     libva-utils
-    gnome.adwaita-icon-theme
-    gnome.gnome-themes-extra
+    adwaita-icon-theme
+    gnome-themes-extra
     gsettings-desktop-schemas
     wlr-randr
     wl-clipboard
