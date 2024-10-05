@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
-  imports = [ ./desktop_environment.nix ];
+  imports = [ ./desktop_environment.nix ./boot.nix ];
 
   # linux driver
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -53,7 +53,6 @@
     nixfmt-classic
     home-manager
     vesktop
-    # alacritty
     dmenu
     git
     gnome-keyring

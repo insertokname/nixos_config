@@ -1,4 +1,8 @@
 { ... }: {
+
+  services.xserver.displayManager.sessionCommands =
+    "xrandr --output eDP --mode 1920x1200";
+
   boot.loader = {
     efi.canTouchEfiVariables = true;
     grub2-theme = {
