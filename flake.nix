@@ -23,7 +23,7 @@
           specialArgs = { inherit inputs system newest_pkgs; };
           modules = [
             ./configurations/common/configuration.nix
-            ./configurations/common/custom_pkgs.nix
+            # ./configurations/common/custom_pkgs.nix
             ./hardware/desktop/load_hardware.nix
             ./home-manager/fekete/load_home.nix
             grub2-themes.nixosModules.default
@@ -35,7 +35,7 @@
           specialArgs = { inherit inputs system newest_pkgs; };
           modules = [
             ./configurations/common/configuration.nix
-            ./configurations/common/custom_pkgs.nix
+            # ./configurations/common/custom_pkgs.nix
             ./hardware/laptop/load_hardware.nix
             ./home-manager/ferenti/load_home.nix
             grub2-themes.nixosModules.default
