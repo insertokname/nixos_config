@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, newest_pkgs, ... }: {
   imports = [ ./desktop_environment.nix ./boot.nix ];
 
   # linux driver
@@ -49,58 +49,45 @@
   #docker daemon
   virtualisation.docker.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    docker-compose
-    nixfmt-classic
-    home-manager
-    vesktop
-    dmenu
-    git
-    gnome-keyring
-    nerdfonts
-    networkmanagerapplet
-    nitrogen
-    pasystray
-    polkit_gnome
-    pulseaudioFull
-    rofi
-    neovim
-    unrar
-    unzip
-    firefox
-    python3
-    gcc
-    # vscode
-    github-desktop
+  environment.systemPackages = with pkgs;
+    [
+      docker-compose
+      nixfmt-classic
+      home-manager
+      vesktop
+      dmenu
+      git
+      gnome-keyring
+      nerdfonts
+      networkmanagerapplet
+      nitrogen
+      pasystray
+      polkit_gnome
+      pulseaudioFull
+      rofi
+      neovim
+      unrar
+      unzip
+      python3
+      gcc
+      github-desktop
 
-    stow
+      stow
 
-    (polybar.override { i3Support = true; })
-    htop
+      (polybar.override { i3Support = true; })
+      htop
 
-    xdg-utils
+      xdg-utils
 
-    jsoncpp
+      jsoncpp
 
-    smile
+      smile
 
-    spectacle
+      spectacle
 
-    remmina
-    gh # github cli
-    #git-credential-manager 
-    #dotnet-runtime_7
-    #dotnet-aspnetcore_7
-    #dotnetCorePackages.aspnetcore_7_0
-    #dotnetCorePackages.runtime_7_0
-    #dotnetCorePackages.sdk_7_0
-    #dotnet-sdk_7
-
-    #gnupg
-    #pass
-    #pinentry
-    #pinentry-curses
-  ];
+      remmina
+      gh
+    ] ++ (with newest_pkgs; [ firefox vscode ]);
 
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "ShareTechMono" ]; })
