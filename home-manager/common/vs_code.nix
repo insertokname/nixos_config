@@ -6,6 +6,6 @@
 
   programs.vscode ={
     enable = true;
-    package = newest_pkgs.vscode;j
+    package = newest_pkgs.vscode;
   };
 }
