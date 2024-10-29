@@ -9,8 +9,8 @@
   networking = {
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 3000 ];
-      allowedUDPPorts = [ 3000 ];
+      allowedTCPPorts = [ 3000 5500 ];
+      allowedUDPPorts = [ 3000 5500 ];
     };
     hostName = "nixos-default";
     networkmanager.enable = true;
@@ -51,6 +51,7 @@
 
   environment.systemPackages = with pkgs;
     [
+      distrobox
       docker-compose
       nixfmt-classic
       home-manager
@@ -87,7 +88,7 @@
 
       remmina
       gh
-    ] ++ (with newest_pkgs; [ firefox vscode ]);
+    ] ++ (with newest_pkgs; [ firefox ]);
 
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "ShareTechMono" ]; })

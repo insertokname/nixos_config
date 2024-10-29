@@ -45,11 +45,13 @@
 
       homeConfigurations."ferenti" = home-manager.lib.homeManagerConfiguration {
         pkgs = pkgs;
+        extraSpecialArgs = {newest_pkgs= newest_pkgs; };
         modules = [ ./home-manager/ferenti/home.nix ];
       };
 
       homeConfigurations."fekete" = home-manager.lib.homeManagerConfiguration {
         pkgs = pkgs;
+        extraSpecialArgs = {newest_pkgs= newest_pkgs; };
         modules = [ ./home-manager/fekete/home.nix ];
       };
     };
