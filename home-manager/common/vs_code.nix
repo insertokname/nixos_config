@@ -4,7 +4,7 @@
       "--enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer --ozone-platform=wayland";
   };
 
-  programs.vscode ={
+  programs.vscode = {
     enable = true;
     package = newest_pkgs.vscode;
   };

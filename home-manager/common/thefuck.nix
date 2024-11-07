@@ -1,9 +1,8 @@
-{...}:
-{
-    programs.thefuck = {
-        enable = true;
-        enableInstantMode = true;
-        enableFishIntegration = true;
-        enableBashIntegration = true;
-    };
+{ ... }: {
+  programs.thefuck = {
+    enable = true;
+    enableInstantMode = true;
+    enableFishIntegration = true;
+    enableBashIntegration = true;
+  };
 }

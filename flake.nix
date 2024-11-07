@@ -11,11 +11,15 @@
     grub2-themes = { url = "github:vinceliuice/grub2-themes"; };
   };
 
-  outputs = { self, nixpkgs, home-manager, grub2-themes, newest_nixpkgs, ... }@inputs:
+  outputs =
+    { self, nixpkgs, home-manager, grub2-themes, newest_nixpkgs, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      newest_pkgs = import newest_nixpkgs { system = system; config.allowUnfree = true; };
+      newest_pkgs = import newest_nixpkgs {
+        system = system;
+        config.allowUnfree = true;
+      };
     in {
       nixosConfigurations = {
         fekete = nixpkgs.lib.nixosSystem {
@@ -45,13 +49,13 @@
 
       homeConfigurations."ferenti" = home-manager.lib.homeManagerConfiguration {
         pkgs = pkgs;
-        extraSpecialArgs = {newest_pkgs= newest_pkgs; };
+        extraSpecialArgs = { newest_pkgs = newest_pkgs; };
         modules = [ ./home-manager/ferenti/home.nix ];
       };
 
       homeConfigurations."fekete" = home-manager.lib.homeManagerConfiguration {
         pkgs = pkgs;
-        extraSpecialArgs = {newest_pkgs= newest_pkgs; };
+        extraSpecialArgs = { newest_pkgs = newest_pkgs; };
         modules = [ ./home-manager/fekete/home.nix ];
       };
     };
