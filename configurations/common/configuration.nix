@@ -96,6 +96,8 @@
 
       remmina
       gh
+
+      rclone
     ] ++ (with newest_pkgs; [ firefox ]);
 
   fonts.packages = with pkgs; [
