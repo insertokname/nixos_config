@@ -1,6 +1,6 @@
 { ... }: {
   programs.alacritty = {
     enable = true;
-    settings = { shell = "fish"; };
+    settings = { terminal.shell = "fish"; };
   };
 }
