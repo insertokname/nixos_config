@@ -98,6 +98,7 @@
       gh
 
       rclone
+      obsidian
     ] ++ (with newest_pkgs; [ firefox ]);
 
   fonts.packages = with pkgs; [

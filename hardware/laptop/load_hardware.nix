@@ -6,5 +6,6 @@
     ./amd_drivers.nix
     ./scrolling.nix
     ./power_saving.nix
+    ./services/rclone.nix
   ];
 }
