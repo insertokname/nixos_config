@@ -49,8 +49,15 @@
   #docker daemon
   virtualisation.docker.enable = true;
 
+  virtualisation.vmware.host.enable = true;
+  virtualisation.vmware.guest.enable = true;
+
   environment.systemPackages = with pkgs;
     [
+      pinta
+      #pgadmin4
+      mariadb
+      mysql-workbench
       distrobox
       docker-compose
       nixfmt-classic
@@ -69,6 +76,7 @@
       neovim
       unrar
       unzip
+      zip
       python3
       gcc
       github-desktop
