@@ -4,7 +4,7 @@
     enable32Bit = true;
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "nvidia" "vmware" ];
 
   hardware.nvidia = {
     modesetting.enable = true;

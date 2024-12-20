@@ -66,7 +66,6 @@
       dmenu
       git
       gnome-keyring
-      nerdfonts
       networkmanagerapplet
       nitrogen
       pasystray
@@ -102,7 +101,7 @@
     ] ++ (with newest_pkgs; [ firefox ]);
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "ShareTechMono" ]; })
+    nerd-fonts.shure-tech-mono
     iosevka
     font-awesome_5
   ];
