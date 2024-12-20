@@ -60,3 +60,5 @@ On subsequent rebuilds the same command is required. If you want to switch confi
 **IMPORTANT: when first booting up a custom config a user named "test" will be provided, this users password is also "test" and it is defined in plain text under `hardware/example/users.nix`, this i very unsafe for obvious reasons! If you are planning on actually using this config please make sure to delete this user and define your own WITHOUT specifing the password in plain text. Read about it [here](https://nlewo.github.io/nixos-manual-sphinx/configuration/user-mgmt.xml.html).**
 
 **VERY IMPORTANT: the "test" user overwrites any users in your current nixos instalation so you should copy over your previous user from `/etc/nixos/configuration.nix` to `hardware/example/users.nix`**
+
+**Errors may occur when rclone is not configurated on the user but the rclone service is included in the hardware profile, in this case disable the rclone service, install rclone, configure it according to what the service requires, and then re enable the service and rebuild nixos**
