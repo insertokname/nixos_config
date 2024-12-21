@@ -1,4 +1,4 @@
-#shamelessly stolen from: https://tcude.net/setting-up-rclone-with-google-drive/
+# shamelessly stolen from: https://tcude.net/setting-up-rclone-with-google-drive/
 { pkgs, ... }: {
   systemd.services.rclone-gdrive = {
     description = "rclone for obi-remote";
@@ -7,7 +7,7 @@
     serviceConfig = {
       Type = "simple";
       ExecStart =
-        "${pkgs.rclone}/bin/rclone mount --config=/home/fekete/.config/rclone/rclone.conf obi-remote: /mnt/gdrive --allow-other --cache-db-purge --fast-list --poll-interval 10m";
+        "${pkgs.rclone}/bin/rclone mount --config=/home/fekete/.config/rclone/rclone.conf obi-remote: /mnt/gdrive --buffer-size 32M --allow-other --dir-cache-time 300h --poll-interval 1m --max-read-ahead 200M";
       ExecStop = "${pkgs.util-linux}/bin/umount -u /mnt/gdrive";
       Restart = "always";
       RestartSec = 10;
