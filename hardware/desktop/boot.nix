@@ -17,6 +17,7 @@
       efiSupport = true;
       devices = [ "nodev" ];
       useOSProber = true;
+      configurationLimit = 10;
     };
     timeout = 10;
   };
