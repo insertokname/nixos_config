@@ -1,1 +1,1 @@
-{ ... }: { programs.alacritty.settings.font.size = 19; }
+{ ... }: { programs.alacritty.settings.font.size = 13; }
