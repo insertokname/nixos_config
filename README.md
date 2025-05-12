@@ -1,3 +1,5 @@
+pls don't judge my bad config :(
+
 ## My NixOs config
 
 This config is made for multiple computers and so it is organized by "hardware" and "configurations"
