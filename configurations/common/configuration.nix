@@ -47,7 +47,8 @@
   xdg.sounds.enable = false;
 
   #docker daemon
-  virtualisation.docker.enable = true;
+  # virtualisation.docker.enable = true;
+  virtualisation.podman.enable = true;
 
   virtualisation.vmware.host.enable = true;
   virtualisation.vmware.guest.enable = true;
@@ -97,9 +98,15 @@
       remmina
       gh
 
-      rclone
       obsidian
-    ] ++ (with newest_pkgs; [ firefox ]);
+    ] ++ (with newest_pkgs; [
+      firefox
+      rclone
+      godot_4
+      nodejs_latest
+      moonlight-qt
+      podman-desktop
+    ]);
 
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "ShareTechMono" ]; })
