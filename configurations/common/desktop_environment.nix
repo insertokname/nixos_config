@@ -34,10 +34,7 @@
           enableXfwm = false;
         };
       };
-      displayManager = {
-        lightdm.enable = true;
-        # defaultSession = "xfce+i3";
-      };
+
       # displayManager.gdm = {
       #   enable = true;
       #   wayland = true;
@@ -55,33 +52,66 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+    displayManager.sddm = {
+      package = pkgs.kdePackages.sddm;
+      extraPackages = with pkgs; [
+        where-is-my-sddm-theme
+        kdePackages.qt5compat
+      ];
+      enable = true;
+      wayland.enable = true;
+      autoNumlock = true;
+      theme = "where_is_my_sddm_theme";
+      enableHidpi = true;
+      settings = { General = { DisplayServer = "wayland"; }; };
+    };
   };
 
-  programs.hyprland = {
+  programs.sway = {
     enable = true;
-    # nvidiaPatches = true;
-    xwayland.enable = true;
+    wrapperFeatures.gtk = true;
   };
+
+  security.polkit.enable = true;
 
   environment.systemPackages = with pkgs; [
-    libva-utils
+    # sddm
+    (where-is-my-sddm-theme.override {
+      themeConfig.General.passwordCursorColor = "#FFFFFF";
+    })
+
+    # GNOME / Theming
     adwaita-icon-theme
     gnome-themes-extra
     gsettings-desktop-schemas
-    wlr-randr
-    wl-clipboard
-    hyprland-protocols
-    hyprpicker
-    xdg-desktop-portal-hyprland
-    hyprpaper
-    wofi
-    swww
-    xdg-desktop-portal
-    xdg-desktop-portal-gtk
-    qt5.qtwayland
-    qt6.qmake
-    qt6.qtwayland
     adwaita-qt
     adwaita-qt6
+
+    # Wayland / Sway
+    wlr-randr
+    wl-clipboard
+    grim
+    slurp
+    mako
+    wofi
+    swaybg
+    swaylock
+    swayidle
+    qt5.qtwayland
+    qt6.qtwayland
+    
+    # Waybar and dependencies
+    waybar
+    playerctl
+    pavucontrol
+    networkmanagerapplet
+    rofi-wayland
+    light
+
+    # X11 / General
+    libva-utils
+    xdg-desktop-portal
+    xdg-desktop-portal-gtk
+    qt6.qmake
   ];
 }

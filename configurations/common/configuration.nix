@@ -109,9 +109,12 @@
     ]);
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "ShareTechMono" ]; })
+    (nerdfonts.override { fonts = [ "ShareTechMono" "JetBrainsMono" "NerdFontsSymbolsOnly" ]; })
     iosevka
     font-awesome_5
+    font-awesome_6
+    noto-fonts
+    noto-fonts-emoji
   ];
 
   users.mutableUsers = true;

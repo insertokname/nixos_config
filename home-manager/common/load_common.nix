@@ -3,8 +3,8 @@
     ./alacritty.nix
     ./fish.nix
     ./i3_layout/load_i3_layout.nix
+    ./sway.nix
     ./vs_code.nix
     ./zoxide.nix
-    ./thefuck.nix
   ];
 }
