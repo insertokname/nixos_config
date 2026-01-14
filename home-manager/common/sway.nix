@@ -199,7 +199,7 @@
 
       /* Main bar */
       window#waybar {
-          background-color: rgba(40, 40, 40, 0.8);
+          background-color: rgba(40, 40, 40, 0.0);
           color: @foreground;
           transition-property: background-color;
           transition-duration: 0.5s;
