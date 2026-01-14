@@ -105,7 +105,6 @@
     playerctl
     pavucontrol
     networkmanagerapplet
-    rofi-wayland
     light
 
     # X11 / General

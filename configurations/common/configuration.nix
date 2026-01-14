@@ -4,8 +4,6 @@
   # linux driver
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  programs.adb.enable = true;
-
   networking = {
     firewall = {
       enable = true;
@@ -67,7 +65,6 @@
       dmenu
       git
       gnome-keyring
-      nerdfonts
       networkmanagerapplet
       nitrogen
       pasystray
@@ -93,12 +90,14 @@
 
       smile
 
-      spectacle
+      kdePackages.spectacle
 
       remmina
       gh
 
       obsidian
+
+      pkgs.android-tools
     ] ++ (with newest_pkgs; [
       firefox
       rclone
@@ -109,12 +108,14 @@
     ]);
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "ShareTechMono" "JetBrainsMono" "NerdFontsSymbolsOnly" ]; })
+    nerd-fonts.shure-tech-mono
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.symbols-only
     iosevka
     font-awesome_5
     font-awesome_6
     noto-fonts
-    noto-fonts-emoji
+    noto-fonts-color-emoji
   ];
 
   users.mutableUsers = true;
