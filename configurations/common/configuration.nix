@@ -96,16 +96,18 @@
       gh
 
       obsidian
-    ] ++ (with newest_pkgs; [
-      firefox
-      rclone
-      godot_4
-      nodejs_latest
-      moonlight-qt
+
       podman-desktop
       signal-desktop
+      rclone
+      
+      nodejs_latest
+      moonlight-qt
+      godot_4
       scrcpy
       android-tools
+    ] ++ (with newest_pkgs; [
+      firefox
     ]);
 
   fonts.packages = with pkgs; [

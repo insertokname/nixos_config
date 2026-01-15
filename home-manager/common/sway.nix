@@ -693,7 +693,11 @@
       floating = {
         titlebar = true;
         border = 3;
-        criteria = [ ];
+        criteria = [
+          {
+            title = "Picture-in-Picture";
+          }
+        ];
       };
 
       gaps = {
