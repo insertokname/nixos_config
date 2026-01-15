@@ -1,168 +1,262 @@
-{ config, pkgs, lib, ... }: {
-  # Waybar configuration
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
+  programs.swaylock = {
+    enable = true;
+    settings = {
+      color = "000000";
+      font-size = 24;
+      indicator-idle-visible = false;
+      indicator-radius = 100;
+      line-color = "282828";
+      show-failed-attempts = true;
+      # Gruvbox
+      inside-color = "28282800";
+      ring-color = "98971a";
+      key-hl-color = "b8bb26";
+      bs-hl-color = "cc241d";
+      inside-ver-color = "45858800";
+      ring-ver-color = "458588";
+      inside-wrong-color = "cc241d00";
+      ring-wrong-color = "cc241d";
+      inside-clear-color = "d7992100";
+      ring-clear-color = "d79921";
+    };
+  };
+
+  services.swayidle = {
+    enable = true;
+    events = {
+      before-sleep = "${pkgs.swaylock}/bin/swaylock -f";
+      lock = "${pkgs.swaylock}/bin/swaylock -f";
+    };
+  };
+
   programs.waybar = {
     enable = true;
     systemd = {
       enable = true;
       target = "sway-session.target";
     };
-    settings = [{
-      layer = "top";
-      position = "top";
-      height = 35;
-      spacing = 4;
-      margin-top = 6;
-      margin-left = 10;
-      margin-right = 10;
+    settings = [
+      {
+        layer = "top";
+        position = "top";
+        height = 35;
+        spacing = 4;
+        margin-top = 6;
+        margin-left = 10;
+        margin-right = 10;
 
-      modules-left = ["custom/logo" "sway/workspaces" "custom/music"];
-      modules-center = ["clock" "custom/weather"];
-      modules-right = ["tray" "cpu" "memory" "pulseaudio" "network" "battery" "custom/logout" "custom/powermenu"];
+        modules-left = [
+          "custom/logo"
+          "sway/workspaces"
+          "custom/music"
+          "sway/language"
+        ];
+        modules-center = [ "clock" ];
+        modules-right = [
+          "tray"
+          "bluetooth"
+          "network"
+          "pulseaudio"
+          "cpu"
+          "memory"
+          "battery"
+          "custom/logout"
+          "custom/powermenu"
+        ];
 
-      "custom/logo" = {
-        format = "";
-        on-click = "rofi -show drun";
-        tooltip = false;
-      };
+        "custom/logo" = {
+          format = "";
+          on-click = "${pkgs.rofi}/bin/rofi -show drun";
+          tooltip = false;
+        };
 
-      "sway/workspaces" = {
-        disable-scroll = false;
-        all-outputs = true;
-        format = "{name}";
-      };
-
-      "custom/powermenu" = {
-        format = "⏻";
-        on-click = "swaynag -t warning -m 'Power Menu' -B 'Shutdown' 'systemctl poweroff' -B 'Reboot' 'systemctl reboot'";
-        tooltip = false;
-      };
-
-      "custom/logout" = {
-        format = "󰍃";
-        on-click = "swaymsg exit";
-        tooltip = false;
-      };
-
-      "custom/weather" = {
-        format = "{}";
-        interval = 600;
-        exec = "curl -sf 'wttr.in/?format=%c+%t' 2>/dev/null || echo '󰖐 --'";
-        tooltip = false;
-        on-click = "xdg-open https://wttr.in/";
-      };
-
-      "custom/music" = {
-        format = "{}";
-        interval = 1;
-        exec = "${pkgs.playerctl}/bin/playerctl metadata --format '󰎈 {{title}} - {{artist}}' 2>/dev/null || echo ''";
-        max-length = 40;
-        tooltip = false;
-        on-click-middle = "${pkgs.playerctl}/bin/playerctl play-pause";
-        on-click = "${pkgs.playerctl}/bin/playerctl previous";
-        on-click-right = "${pkgs.playerctl}/bin/playerctl next";
-      };
-
-      tray = {
-        icon-size = 18;
-        spacing = 10;
-      };
-
-      clock = {
-        interval = 1;
-        format = "{:%b %d  %H:%M}";
-        format-alt = "{:%A, %d %B %Y  %H:%M:%S}";
-        tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-
-        calendar = {
-          mode = "year";
-          mode-mon-col = 3;
-          weeks-pos = "right";
-          on-scroll = 1;
-          format = {
-            months = "<span color='#d79921'><b>{}</b></span>";
-            days = "<span color='#ebdbb2'>{}</span>";
-            weeks = "<span color='#689d6a'><b>W{}</b></span>";
-            weekdays = "<span color='#cc241d'><b>{}</b></span>";
-            today = "<span color='#98971a'><b><u>{}</u></b></span>";
+        "sway/workspaces" = {
+          disable-scroll = false;
+          all-outputs = true;
+          format= "{icon}";
+          format-icons = {
+            "2" = "";
+            "3" = "󰈹";
+            "4" = "";
           };
         };
-        actions = {
-          on-click-right = "mode";
-          on-scroll-up = "shift_up";
-          on-scroll-down = "shift_down";
+
+        "custom/powermenu" = {
+          format = "⏻";
+          on-click = "${pkgs.sway}/bin/swaynag -t warning -m 'Power Menu' -B 'Shutdown' 'systemctl poweroff' -B 'Reboot' 'systemctl reboot'";
+          tooltip = false;
         };
-      };
 
-      pulseaudio = {
-        format = "{icon} {volume}%";
-        format-bluetooth = "{icon} {volume}%";
-        format-bluetooth-muted = "󰝟 {icon}";
-        format-muted = "󰝟";
-        format-icons = {
-          headphone = "󰋋";
-          hands-free = "󰋎";
-          headset = "󰋎";
-          phone = "";
-          portable = "";
-          car = "";
-          default = ["󰕿" "󰖀" "󰕾"];
+        "custom/logout" = {
+          format = "󰍃";
+          on-click = "${pkgs.sway}/bin/swaymsg exit";
+          tooltip = false;
         };
-        on-click = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
-        on-click-right = "${pkgs.pavucontrol}/bin/pavucontrol";
-        on-scroll-up = "pactl set-sink-volume @DEFAULT_SINK@ +5%";
-        on-scroll-down = "pactl set-sink-volume @DEFAULT_SINK@ -5%";
-        tooltip = false;
-      };
 
-      network = {
-        format-wifi = "󰖩 {signalStrength}%";
-        format-ethernet = "󰈁";
-        format-linked = "󰈁";
-        format-disconnected = "󰖪";
-        format-alt = "{ifname}: {ipaddr}/{cidr}";
-        tooltip-format = "{essid} ({signalStrength}%)\n{ifname}: {ipaddr}";
-        on-click-right = "nm-connection-editor";
-      };
+        # "custom/weather" = {
+        #   format = "{}";
+        #   interval = 600;
+        #   exec = "curl -sf 'wttr.in/?format=%c+%t' 2>/dev/null || echo '󰖐 --'";
+        #   tooltip = false;
+        #   on-click = "xdg-open https://wttr.in/";
+        # };
 
-      battery = {
-        interval = 10;
-        states = {
-          good = 95;
-          warning = 30;
-          critical = 15;
+        "custom/music" = {
+          format = "{}";
+          interval = 1;
+          exec = "${pkgs.playerctl}/bin/playerctl metadata --format '󰎈 {{title}} - {{artist}}' 2>/dev/null || echo ''";
+          max-length = 40;
+          tooltip = false;
+          on-click-middle = "${pkgs.playerctl}/bin/playerctl play-pause";
+          on-click = "${pkgs.playerctl}/bin/playerctl previous";
+          on-click-right = "${pkgs.playerctl}/bin/playerctl next";
         };
-        format = "{icon} {capacity}%";
-        format-charging = "󰂄 {capacity}%";
-        format-plugged = "󰂄 {capacity}%";
-        format-alt = "{icon} {time}";
-        format-icons = ["󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
-        tooltip-format = "{capacity}% - {timeTo}";
-      };
 
-      backlight = {
-        format = "{icon} {percent}%";
-        format-icons = ["󰃞" "󰃟" "󰃠"];
-        on-scroll-up = "light -A 5";
-        on-scroll-down = "light -U 5";
-      };
+        tray = {
+          icon-size = 18;
+          spacing = 10;
+        };
 
-      cpu = {
-        format = "󰻠 {usage}%";
-        tooltip = true;
-        interval = 2;
-      };
+        clock = {
+          interval = 1;
+          format = "{:%b %d  %H:%M}";
+          format-alt = "{:%A, %d %B %Y  %H:%M:%S}";
+          tooltip-format = ''
+            <big>{:%Y %B}</big>
+            <tt><small>{calendar}</small></tt>'';
 
-      memory = {
-        format = "<span size='large'>󰍛</span> {used:0.1f}G";
-        tooltip-format = "{used:0.1f}G / {total:0.1f}G";
-      };
+          calendar = {
+            mode = "year";
+            mode-mon-col = 3;
+            weeks-pos = "right";
+            on-scroll = 1;
+            format = {
+              months = "<span color='#d79921'><b>{}</b></span>";
+              days = "<span color='#ebdbb2'>{}</span>";
+              weeks = "<span color='#689d6a'><b>W{}</b></span>";
+              weekdays = "<span color='#cc241d'><b>{}</b></span>";
+              today = "<span color='#98971a'><b><u>{}</u></b></span>";
+            };
+          };
+          actions = {
+            on-click-right = "mode";
+            on-scroll-up = "shift_up";
+            on-scroll-down = "shift_down";
+          };
+        };
 
-      "sway/language" = {
-        format = "󰌌 {short}";
-        on-click = "swaymsg input type:keyboard xkb_switch_layout next";
-        tooltip-format = "{long}";
-      };
-    }];
+        pulseaudio = {
+          format = "{icon} {volume}%";
+          format-bluetooth = "{icon} {volume}%";
+          format-bluetooth-muted = "󰝟 {icon}";
+          format-muted = "󰝟";
+          format-icons = {
+            headphone = "󰋋";
+            hands-free = "󰋎";
+            headset = "󰋎";
+            phone = "";
+            portable = "";
+            car = "";
+            default = [
+              "󰕿"
+              "󰖀"
+              "󰕾"
+            ];
+          };
+          on-click = "${pkgs.pulseaudioFull}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          on-click-right = "${pkgs.pavucontrol}/bin/pavucontrol";
+          on-scroll-up = "${pkgs.pulseaudioFull}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
+          on-scroll-down = "${pkgs.pulseaudioFull}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
+          tooltip = false;
+        };
+
+        network = {
+          format-wifi = "󰖩 {signalStrength}%";
+          format-ethernet = "󰈁";
+          format-linked = "󰈁";
+          format-disconnected = "󰖪";
+          format-alt = "{ifname}: {ipaddr}/{cidr}";
+          tooltip-format = ''
+            {essid} ({signalStrength}%)
+            {ifname}: {ipaddr}'';
+          on-click-right = "nm-connection-editor";
+        };
+
+        bluetooth = {
+          format = "󰂯";
+          format-disabled = "󰂲";
+          format-off = "󰂲";
+          format-connected = "󰂱 {device_alias}";
+          format-connected-battery = "󰂱 {device_alias} {device_battery_percentage}%";
+          tooltip-format = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
+          tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
+          tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
+          tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
+          on-click = "${pkgs.util-linux}/bin/rfkill toggle bluetooth";
+          on-click-right = "${pkgs.blueman}/bin/blueman-manager";
+        };
+
+        battery = {
+          interval = 10;
+          states = {
+            good = 95;
+            warning = 30;
+            critical = 15;
+          };
+          format = "{icon} {capacity}% {time}";
+          format-charging = "󰂄 {capacity}%";
+          format-plugged = "󰂄 {capacity}%";
+          format-icons = [
+            "󰁺"
+            "󰁻"
+            "󰁼"
+            "󰁽"
+            "󰁾"
+            "󰁿"
+            "󰂀"
+            "󰂁"
+            "󰂂"
+            "󰁹"
+          ];
+          tooltip-format = "{capacity}% - {timeTo}";
+        };
+
+        backlight = {
+          format = "{icon} {percent}%";
+          format-icons = [
+            "󰃞"
+            "󰃟"
+            "󰃠"
+          ];
+          on-scroll-up = "light -A 5";
+          on-scroll-down = "light -U 5";
+        };
+
+        cpu = {
+          format = "󰻠 {usage}%";
+          tooltip = true;
+          interval = 2;
+        };
+
+        memory = {
+          format = "<span size='large'>󰍛</span> {used:0.1f}G";
+          tooltip-format = "{used:0.1f}G / {total:0.1f}G";
+        };
+
+        "sway/language" = {
+          format = "󰌌 {short}";
+          on-click = "swaymsg input type:keyboard xkb_switch_layout next";
+          tooltip-format = "{long}";
+        };
+      }
+    ];
 
     style = ''
       /* Gruvbox Dark color scheme for Waybar */
@@ -234,6 +328,7 @@
       #memory,
       #backlight,
       #network,
+      #bluetooth,
       #pulseaudio,
       #custom-weather,
       #custom-music,
@@ -385,6 +480,21 @@
           color: @foreground-alt;
       }
 
+      /* Bluetooth */
+      #bluetooth {
+          color: @blue-light;
+      }
+
+      #bluetooth.connected {
+          color: @aqua-light;
+      }
+
+      #bluetooth.disabled,
+      #bluetooth.off {
+          color: @foreground-alt;
+          background-color: @background-alt;
+      }
+
       /* Pulseaudio/Audio */
       #pulseaudio {
           color: @aqua-light;
@@ -453,7 +563,8 @@
       /* Keyboard layout */
       #language,
       #sway-language {
-          color: @orange-light;
+          background-color: @background;
+          color: @green;
           font-size: 12px;
       }
     '';
@@ -489,82 +600,91 @@
         };
       };
 
-      # Keybindings
       keybindings = lib.mkOptionDefault {
-        # Terminal
         "${modifier}+Return" = "exec ${terminal}";
 
-        # Emoji picker
-        "${modifier}+period" = "exec smile";
+        "${modifier}+period" = "exec rofimoji --action type copy --skin-tone neutral";
 
-        # Kill focused window
+        "${modifier}+u" = "exec wtype '̈'";
+        "${modifier}+s" = "exec wtype ß";
+
         "${modifier}+q" = "kill";
 
-        # Application launcher (rofi/wofi)
         "${modifier}+d" = "exec rofi -show drun";
 
-        # Focus
         "${modifier}+h" = "focus left";
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
         "${modifier}+l" = "focus right";
 
-        # Move focused window
         "${modifier}+Shift+h" = "move left";
         "${modifier}+Shift+j" = "move down";
         "${modifier}+Shift+k" = "move up";
         "${modifier}+Shift+l" = "move right";
 
-        # Split orientation
         "${modifier}+g" = "splith";
         "${modifier}+v" = "splitv";
 
-        # Fullscreen
         "${modifier}+f" = "fullscreen toggle";
 
-        # Layout
-        "${modifier}+s" = "layout stacking";
+        # "${modifier}+s" = "layout stacking";
         "${modifier}+w" = "layout tabbed";
         "${modifier}+e" = "layout toggle split";
 
-        # Toggle floating
         "${modifier}+Shift+space" = "floating toggle";
         "${modifier}+space" = "focus mode_toggle";
 
-        # Focus parent
-        "${modifier}+a" = "focus parent";
-
-        # Reload/restart
         "${modifier}+Shift+c" = "reload";
         "${modifier}+Shift+e" = "exec swaynag -t warning -m 'Exit sway?' -B 'Yes' 'swaymsg exit'";
 
-        # Volume controls
-        "XF86AudioRaiseVolume" = "exec pactl set-sink-mute @DEFAULT_SINK@ 0 && pactl set-sink-volume @DEFAULT_SINK@ +5%";
-        "XF86AudioLowerVolume" = "exec pactl set-sink-mute @DEFAULT_SINK@ 0 && pactl set-sink-volume @DEFAULT_SINK@ -5%";
+        "XF86AudioRaiseVolume" =
+          "exec pactl set-sink-mute @DEFAULT_SINK@ 0 && pactl set-sink-volume @DEFAULT_SINK@ +5%";
+        "XF86AudioLowerVolume" =
+          "exec pactl set-sink-mute @DEFAULT_SINK@ 0 && pactl set-sink-volume @DEFAULT_SINK@ -5%";
         "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
         "XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 
-        # Power button
         "XF86PowerOff" = "exec systemctl poweroff";
 
-        # Brightness (if using light)
+        "XF86AudioPlay" = "exec playerctl play-pause";
+        "XF86AudioPause" = "exec playerctl play-pause";
+        "XF86AudioNext" = "exec playerctl next";
+        "XF86AudioPrev" = "exec playerctl previous";
+        "XF86AudioStop" = "exec playerctl stop";
+
         "XF86MonBrightnessUp" = "exec light -A 10";
         "XF86MonBrightnessDown" = "exec light -U 10";
 
-        # Screenshot (selection)
         "${modifier}+Shift+s" = "exec slurp | grim -g - - | wl-copy";
         "Print" = "exec grim - | wl-copy";
       };
 
-      # Startup applications
       startup = [
         { command = "nm-applet"; }
-        { command = "mako"; }
-        # Random wallpaper from nitrogen backgrounds
-        { command = "swaybg -i $(find ~/.config/nitrogen/bg -type f | shuf -n 1) -m fill"; }
+        {
+          command = "mako";
+        }
+        {
+          command = "swaybg -i $(find ~/.config/nitrogen/bg -type f | shuf -n 1) -m fill";
+        }
+        {
+          command = "swaymsg workspace 2";
+        }
+        {
+          command = "firefox & vesktop & code -n";
+        }
       ];
 
-      # Window rules
+      assigns = {
+        "2" = [
+          { app_id = "code"; }
+          { app_id = "Code"; }
+          { class = "Code"; }
+        ];
+        "3" = [ { app_id = "firefox"; } ];
+        "4" = [ { app_id = "vesktop"; } ];
+      };
+
       window = {
         titlebar = true;
         border = 5;
@@ -573,16 +693,14 @@
       floating = {
         titlebar = true;
         border = 3;
-        criteria = [
-          { app_id = "smile"; }
-        ];
+        criteria = [ ];
       };
 
       gaps = {
         inner = 20;
       };
 
-      # Gruvbox color scheme
+      # Gruvbox
       colors = {
         focused = {
           border = "#98971a";
@@ -614,7 +732,7 @@
         };
       };
 
-      bars = [];
+      bars = [ ];
 
       output = {
         eDP-1 = {
@@ -636,14 +754,13 @@
     '';
   };
 
-  # Cursor configuration
   home.pointerCursor = {
-    name = "Adwaita";
-    package = pkgs.adwaita-icon-theme;
+    name = "phinger-cursors-dark";
+    package = pkgs.phinger-cursors;
     size = 24;
     x11 = {
       enable = true;
-      defaultCursor = "Adwaita";
+      defaultCursor = "phinger-cursors-dark";
     };
     gtk.enable = true;
   };

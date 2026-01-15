@@ -106,6 +106,7 @@
     pavucontrol
     networkmanagerapplet
     light
+    wtype
 
     # X11 / General
     libva-utils

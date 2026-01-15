@@ -59,7 +59,7 @@
       mysql-workbench
       distrobox
       docker-compose
-      nixfmt-classic
+      nixfmt
       home-manager
       vesktop
       dmenu
@@ -88,7 +88,7 @@
 
       jsoncpp
 
-      smile
+      rofimoji
 
       kdePackages.spectacle
 
@@ -96,8 +96,6 @@
       gh
 
       obsidian
-
-      pkgs.android-tools
     ] ++ (with newest_pkgs; [
       firefox
       rclone
@@ -105,6 +103,9 @@
       nodejs_latest
       moonlight-qt
       podman-desktop
+      signal-desktop
+      scrcpy
+      android-tools
     ]);
 
   fonts.packages = with pkgs; [

@@ -68,11 +68,9 @@ bindsym $mod+Shift+f exec --no-startup-id "thunar"
 # Open browser
 # bindsym $mod+b exec --no-startup-id "brave" 
 
-# Open emojy picker smile
-bindsym $mod+period exec "smile"
+# Open emojy picker rofimoji
+bindsym $mod+period exec "rofimoji"
 
-#make smile always floating
-for_window [class="smile"] floating enable #resize set 640 480
 
 # kill focused window
 bindsym $mod+q kill
