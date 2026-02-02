@@ -60,6 +60,7 @@
       distrobox
       docker-compose
       nixfmt
+      nil
       home-manager
       vesktop
       dmenu
@@ -71,7 +72,6 @@
       polkit_gnome
       pulseaudioFull
       rofi
-      neovim
       unrar
       unzip
       zip
@@ -106,6 +106,12 @@
       godot_4
       scrcpy
       android-tools
+      wget
+
+      tinymist
+
+      pandoc
+      wkhtmltopdf
     ] ++ (with newest_pkgs; [
       firefox
     ]);
@@ -127,6 +133,7 @@
     thunar.enable = true;
     dconf.enable = true;
     gnupg.agent.enable = true;
+    fuse.userAllowOther = true;
   };
 
   security = {

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ ... }: {
   imports = [
     ./alacritty.nix
     ./fish.nix
@@ -6,5 +6,6 @@
     ./sway.nix
     ./vs_code.nix
     ./zoxide.nix
+    ./neovim.nix
   ];
 }

@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   lib,
   ...
@@ -80,7 +79,7 @@
         "sway/workspaces" = {
           disable-scroll = false;
           all-outputs = true;
-          format= "{icon}";
+          format = "{icon}";
           format-icons = {
             "2" = "";
             "3" = "󰈹";
@@ -598,6 +597,10 @@
           natural_scroll = "enabled";
           dwt = "enabled";
         };
+        "type:keyboard" = {
+          repeat_delay = "350";
+          repeat_rate = "45";
+        };
       };
 
       keybindings = lib.mkOptionDefault {
@@ -668,19 +671,14 @@
           command = "swaybg -i $(find ~/.config/nitrogen/bg -type f | shuf -n 1) -m fill";
         }
         {
-          command = "swaymsg workspace 2";
+          command = "swaymsg workspace 3";
         }
         {
-          command = "firefox & vesktop & code -n";
+          command = "firefox";
         }
       ];
 
       assigns = {
-        "2" = [
-          { app_id = "code"; }
-          { app_id = "Code"; }
-          { class = "Code"; }
-        ];
         "3" = [ { app_id = "firefox"; } ];
         "4" = [ { app_id = "vesktop"; } ];
       };
