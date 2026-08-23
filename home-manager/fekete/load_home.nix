@@ -1,8 +1,11 @@
-{ inputs, pkgs, newest_pkgs, ... }: {
+{ inputs, newest_pkgs, ... }:
+{
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   home-manager = {
     extraSpecialArgs = { inherit inputs newest_pkgs; };
-    users = { fekete = import ./home.nix; };
+    users = {
+      fekete = import ./home.nix;
+    };
   };
 }

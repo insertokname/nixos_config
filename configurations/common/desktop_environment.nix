@@ -20,7 +20,7 @@
       xkb = {
         layout = "us,ro";
         variant = ",std";
-        options = "grp:alt_shift_toggle";
+        options = "grp:ctrl_space_toggle";
       };
       windowManager.i3 = {
         enable = true;
@@ -70,6 +70,7 @@
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
+    extraOptions = [ "--unsupported-gpu" ];
   };
 
   security.polkit.enable = true;
@@ -105,7 +106,8 @@
     playerctl
     pavucontrol
     networkmanagerapplet
-    light
+    # light
+    brightnessctl
     wtype
 
     # X11 / General

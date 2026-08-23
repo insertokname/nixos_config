@@ -1,9 +1,10 @@
-{ config, pkgs, ... }: {
+{ inputs, ... }: {
   imports = [
     # Common imports
     ../common/load_common.nix
     # User specific imports
     ./overrides/load_overrides.nix
+    inputs.nix-flatpak.homeManagerModules.nix-flatpak
   ];
 
   # Home Manager needs a bit of information about you and the paths it should

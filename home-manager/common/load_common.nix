@@ -7,5 +7,7 @@
     ./vs_code.nix
     ./zoxide.nix
     ./neovim.nix
+    ./flatpak.nix
+    # ./firefox.nix
   ];
 }

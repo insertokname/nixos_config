@@ -12,10 +12,19 @@
       url = "github:vinceliuice/grub2-themes";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
   outputs =
-    { self, nixpkgs, home-manager, grub2-themes, newest_nixpkgs, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      grub2-themes,
+      newest_nixpkgs,
+      nix-flatpak,
+      ...
+    }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -23,7 +32,8 @@
         system = system;
         config.allowUnfree = true;
       };
-    in {
+    in
+    {
       nixosConfigurations = {
         fekete = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -52,13 +62,17 @@
 
       homeConfigurations."ferenti" = home-manager.lib.homeManagerConfiguration {
         pkgs = pkgs;
-        extraSpecialArgs = { newest_pkgs = newest_pkgs; };
+        extraSpecialArgs = {
+          newest_pkgs = newest_pkgs;
+        };
         modules = [ ./home-manager/ferenti/home.nix ];
       };
 
       homeConfigurations."fekete" = home-manager.lib.homeManagerConfiguration {
         pkgs = pkgs;
-        extraSpecialArgs = { newest_pkgs = newest_pkgs; };
+        extraSpecialArgs = {
+          newest_pkgs = newest_pkgs;
+        };
         modules = [ ./home-manager/fekete/home.nix ];
       };
     };

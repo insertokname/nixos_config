@@ -592,6 +592,10 @@
           xkb_variant = ",std";
           xkb_options = "grp:ctrl_space_toggle";
         };
+        "type:pointer" = {
+          accel_profile = "flat";
+          pointer_accel = "0";
+        };
         "type:touchpad" = {
           tap = "enabled";
           natural_scroll = "enabled";
@@ -736,11 +740,17 @@
 
       bars = [ ];
 
-      output = {
-        eDP-1 = {
-          mode = "1920x1200";
-        };
-      };
+      # output = {
+      #   eDP-1 = {
+      #     mode = "1920x1200";
+      #   };
+      # };
+
+      # output = {
+      #   DP-1 = {
+      #     mode = "1920x1200@240Hz";
+      #   };
+      # };
     };
 
     extraConfig = ''

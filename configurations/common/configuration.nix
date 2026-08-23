@@ -1,5 +1,17 @@
-{ config, pkgs, newest_pkgs, ... }: {
-  imports = [ ./desktop_environment.nix ./boot.nix ];
+{
+  inputs,
+  pkgs,
+  newest_pkgs,
+  ...
+}:
+{
+  imports = [
+    ./desktop_environment.nix
+    ./boot.nix
+    ./no_rgb.nix
+  ];
+
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
   # linux driver
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -7,8 +19,14 @@
   networking = {
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 3000 5500 ];
-      allowedUDPPorts = [ 3000 5500 ];
+      allowedTCPPorts = [
+        3000
+        5500
+      ];
+      allowedUDPPorts = [
+        3000
+        5500
+      ];
     };
     hostName = "nixos-default";
     networkmanager.enable = true;
@@ -33,7 +51,10 @@
   time.hardwareClockInLocalTime = true;
   time.timeZone = "Europe/Bucharest";
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   nixpkgs = {
     config = {
@@ -51,7 +72,12 @@
   virtualisation.vmware.host.enable = true;
   virtualisation.vmware.guest.enable = true;
 
-  environment.systemPackages = with pkgs;
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-40.10.5"
+  ];
+
+  environment.systemPackages =
+    with pkgs;
     [
       pinta
       #pgadmin4
@@ -60,6 +86,7 @@
       distrobox
       docker-compose
       nixfmt
+      nixd
       nil
       home-manager
       vesktop
@@ -100,7 +127,7 @@
       podman-desktop
       signal-desktop
       rclone
-      
+
       nodejs_latest
       moonlight-qt
       godot_4
@@ -112,9 +139,14 @@
 
       pandoc
       wkhtmltopdf
-    ] ++ (with newest_pkgs; [
+
+      flatpak
+    ]
+    ++ (with newest_pkgs; [
       firefox
     ]);
+
+  services.flatpak.enable = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.shure-tech-mono
@@ -149,8 +181,7 @@
       after = [ "graphical-session.target" ];
       serviceConfig = {
         Type = "simple";
-        ExecStart =
-          "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
         Restart = "on-failure";
         RestartSec = 1;
         TimeoutStopSec = 10;
@@ -158,7 +189,9 @@
     };
   };
 
-  hardware = { bluetooth.enable = true; };
+  hardware = {
+    bluetooth.enable = true;
+  };
 
   system.stateVersion = "23.05";
 }
