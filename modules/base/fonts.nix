@@ -9,22 +9,22 @@
         packages = with pkgs; [
           nerd-fonts.symbols-only
           nerd-fonts.caskaydia-cove
-          iosevka
-          font-awesome_5
-          font-awesome_6
-          redhat-official-fonts
+          nerd-fonts.caskaydia-mono
           ubuntu-sans
-          overpass
+          source-serif
           noto-fonts-color-emoji
         ];
 
         fontconfig = {
           defaultFonts = {
             sansSerif = [ "Ubuntu Sans" ];
+            serif = [ "Source Serif 4" ];
             monospace = [ "CaskaydiaCove Nerd Font Mono" ];
             emoji = [ "Noto Color Emoji" ];
           };
 
+          subpixel.rgba = "rgb";
+ 
           useEmbeddedBitmaps = true;
         };
       };
