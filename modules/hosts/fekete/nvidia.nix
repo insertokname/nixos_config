@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, ... }:
 {
   flake.modules.nixos.fekete = { pkgs, config, ... }: {
     services.xserver.videoDrivers = [ "nvidia" ];
@@ -24,6 +24,7 @@
     ];
 
     hardware.graphics = {
+      package = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa;
       enable = true;
       enable32Bit = true;
 

@@ -1,0 +1,6 @@
+{
+    "Lua.workspace.library": [
+        "/usr/share/hypr/stubs",
+        "/run/current-system/sw/share/hypr/"
+    ]
+}
