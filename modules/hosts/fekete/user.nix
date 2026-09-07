@@ -7,6 +7,7 @@
       extraGroups = [
         "networkmanager"
         "wheel"
+        "uinput" # sunshine
       ];
       initialPassword = "test";
     };

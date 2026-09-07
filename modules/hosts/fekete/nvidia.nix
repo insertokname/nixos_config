@@ -41,8 +41,7 @@
 
     nixpkgs.config = {
       nvidia.acceptLicense = true;
-      # might enable later
-      # cudaSupport = true;
+      cudaSupport = true;
     };
   };
 }

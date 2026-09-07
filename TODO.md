@@ -1,0 +1,21 @@
+- [x] remote desktop
+- [ ] ssh
+- [ ] hyprland shortcuts
+- [ ] taskbar
+- [ ] notifications
+- [ ] background
+- [ ] stylix?
+- [ ] better wofi?
+- [ ] floating windows for
+  - [ ] firefox overlay
+  - [ ] bitwarden
+- [ ] self host
+  - [ ] calendar app
+  - [ ] contacts sync
+  - [ ] galery
+  - [ ] jellyfin
+  - [ ] some sort of storage thing?
+  - [ ] todo app?
+- [ ] remote nix store for self compiled apps?
+- [ ] clipboard history
+- [ ] firefox shortcuts

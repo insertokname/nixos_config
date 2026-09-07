@@ -1,5 +1,5 @@
 { self, ... }: {
-  flake.modules.nixos.desktop =
+  flake.modules.nixos.shell =
     { ... }:
     let
       gruvbox = self.lib.gruvbox;

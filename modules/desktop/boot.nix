@@ -19,7 +19,7 @@
         screen = "1080p";
         splashImage = ./background.png;
       };
-      timeout = 10;
+      timeout = 3;
     };
   };
 }

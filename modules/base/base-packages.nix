@@ -3,13 +3,15 @@
 {
   flake.modules.nixos.base = { pkgs, ... }: {
     environment.systemPackages = with pkgs; [
-      neovim
-      claude-code
-      htop
-      git
-      gh
-      vscode
       firefox
+
+      moonlight
+
+      neovim
+      git
+
+      htop
+      wget
     ];
   };
 }
