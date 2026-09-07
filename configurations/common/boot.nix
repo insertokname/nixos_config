@@ -1,6 +1,5 @@
 { pkgs, ... }: {
   boot = {
-
     plymouth = {
       enable = true;
       theme = "rings";

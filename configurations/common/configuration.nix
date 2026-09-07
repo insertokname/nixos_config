@@ -141,6 +141,7 @@
       wkhtmltopdf
 
       flatpak
+      vlc
     ]
     ++ (with newest_pkgs; [
       firefox
