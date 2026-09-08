@@ -32,7 +32,7 @@ hl.config({
         resize_on_border = false,
         allow_tearing    = false,
 
-        layout           = "dwindle",
+        layout           = "master",
 
         snap             = {
             enabled = true,
@@ -211,7 +211,7 @@ hl.bind(mainMod .. " + w", function()
         hl.workspace_rule({
             workspace = ws.special and tostring(ws.name) or tostring(ws.id),
             layout = ws
-                .tiled_layout == "monocle" and "dwindle" or "monocle"
+                .tiled_layout == "monocle" and "master" or "monocle"
         })
     end
 end)

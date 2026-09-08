@@ -12,6 +12,7 @@
 
       htop
       wget
+      openssl
     ];
   };
 }

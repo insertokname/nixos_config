@@ -17,6 +17,10 @@
       url = "github:gmodena/nix-flatpak";
     };
     hyprland.url = "github:hyprwm/Hyprland";
+    nix-dokploy = {
+      url = "github:el-kurto/nix-dokploy";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);

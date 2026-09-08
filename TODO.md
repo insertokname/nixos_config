@@ -1,6 +1,7 @@
 - [x] remote desktop
 - [ ] emoji fonts
 - [ ] ssh
+- [ ] kali wsl
 - [ ] hyprland shortcuts
 - [ ] hyprland socials workspace
 - [ ] hyprland scroll layouts
@@ -10,19 +11,22 @@
 - [ ] stylix?
 - [ ] better wofi?
 - [ ] floating windows for
-  - [X] firefox overlay
-  - [ ] bitwarden
+    - [x] firefox overlay
+    - [ ] bitwarden
 - [ ] self host
-  - [ ] calendar app
-  - [ ] contacts sync
-    - [ ] whatsapp import of contacts 
-    - [ ] all 3 profiles 
-    - [ ] on phone saved contacts (zflip 4)
-  - [ ] galery
-  - [ ] jellyfin
-  - [ ] some sort of storage thing?
-  - [ ] todo app?
+    - [ ] calendar app
+    - [ ] contacts sync
+        - [ ] whatsapp import of contacts
+        - [ ] all 3 profiles
+        - [ ] on phone saved contacts (zflip 4)
+    - [ ] galery
+    - [ ] jellyfin
+    - [ ] some sort of storage thing?
+    - [ ] todo app?
 - [ ] remote nix store for self compiled apps?
 - [ ] clipboard history
 - [ ] firefox shortcuts
+- [ ] workspace auto startup
 - [ ] obsidian TODO
+- [ ] alacritty config
+- [ ] a single function that produces an os so that the the name of a user is only used once in the config

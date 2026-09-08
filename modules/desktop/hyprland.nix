@@ -34,6 +34,8 @@
   flake.modules.homeManager.desktop =
     { ... }:
     {
+      systemd.user.startServices = "sd-switch";
+
       wayland.windowManager.hyprland = {
         enable = true;
         package = null;
