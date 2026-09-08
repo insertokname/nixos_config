@@ -1,4 +1,5 @@
 - [x] remote desktop
+- [ ] emoji fonts
 - [ ] ssh
 - [ ] hyprland shortcuts
 - [ ] hyprland socials workspace
