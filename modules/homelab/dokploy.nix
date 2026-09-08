@@ -26,7 +26,6 @@
     };
 
     services.dokploy = {
-      port = null;
       enable = true;
 
       database.passwordFile = "/home/fekete/dotfiles/new_nixos_config/secrets/dokploy-db-password";
