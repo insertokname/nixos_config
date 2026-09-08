@@ -1,17 +1,22 @@
 - [x] remote desktop
 - [ ] ssh
 - [ ] hyprland shortcuts
+- [ ] hyprland socials workspace
+- [ ] hyprland scroll layouts
 - [ ] taskbar
 - [ ] notifications
 - [ ] background
 - [ ] stylix?
 - [ ] better wofi?
 - [ ] floating windows for
-  - [ ] firefox overlay
+  - [X] firefox overlay
   - [ ] bitwarden
 - [ ] self host
   - [ ] calendar app
   - [ ] contacts sync
+    - [ ] whatsapp import of contacts 
+    - [ ] all 3 profiles 
+    - [ ] on phone saved contacts (zflip 4)
   - [ ] galery
   - [ ] jellyfin
   - [ ] some sort of storage thing?
@@ -19,3 +24,4 @@
 - [ ] remote nix store for self compiled apps?
 - [ ] clipboard history
 - [ ] firefox shortcuts
+- [ ] obsidian TODO

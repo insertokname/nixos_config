@@ -1,8 +1,11 @@
-{ ... }: {
+{ inputs, ... }: {
   flake.modules.nixos.desktop =
     { pkgs, ... }:
     {
       programs.hyprland = {
+        package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+        portalPackage =
+          inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
         enable = true;
         withUWSM = true;
         xwayland.enable = true;
@@ -13,7 +16,7 @@
         enable = true;
         extraPortals = [
           pkgs.xdg-desktop-portal-gtk
-          pkgs.xdg-desktop-portal-hyprland
+          inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
         ];
         config.common.default = [
           "hyprland"
@@ -23,7 +26,8 @@
 
       environment.systemPackages = with pkgs; [
         wofi
-        flameshot
+        grim
+        slurp
       ];
     };
 
@@ -39,7 +43,18 @@
 
         systemd.enable = false;
 
-        extraConfig = builtins.readFile ./hyprland.lua;
+        # extraConfig = builtins.readFile ./hypwrland.lua;
       };
+
+      services.flameshot = {
+        enable = true;
+        settings.General = {
+          showDesktopNotification = false;
+          showAbortNotification = false;
+          showStartupLaunchMessage = false;
+        };
+      };
+
+      services.mako.enable = true;
     };
 }
