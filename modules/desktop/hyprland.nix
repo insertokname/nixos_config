@@ -43,7 +43,7 @@
 
         systemd.enable = false;
 
-        # extraConfig = builtins.readFile ./hypwrland.lua;
+        extraConfig = builtins.readFile ./hypwrland.lua;
       };
 
       services.flameshot = {

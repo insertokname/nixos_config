@@ -331,17 +331,6 @@ hl.window_rule({
 })
 
 hl.window_rule({
-    name              = "firefox-bitwarden",
-    match             = {
-        class = "firefox",
-        title = "Extension: (Bitwarden Password Manager) - Bitwarden — Mozilla Firefox"
-    },
-
-    float             = true,
-    keep_aspect_ratio = true,
-})
-
-hl.window_rule({
     name  = "discord-overlay",
     match = {
         class = "vesktop",
