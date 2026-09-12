@@ -28,9 +28,13 @@
     services.dokploy = {
       enable = true;
 
-      database.passwordFile = "/home/fekete/dotfiles/new_nixos_config/secrets/dokploy-db-password";
-      auth.secretFile = "/home/fekete/dotfiles/new_nixos_config/secrets/dokploy-auth-secret";
-      encryption.keyFile = "/home/fekete/dotfiles/new_nixos_config/secrets/dokploy-encryption-key";
+      database.passwordFile = "/var/lib/secrets/dokploy-db-password";
+      auth.secretFile = "/var/lib/secrets/dokploy-auth-secret";
+      encryption.keyFile = "/var/lib/secrets/dokploy-encryption-key";
+
+      environment = {
+        TZ = "Europe/Bucharest";
+      };
     };
   };
 

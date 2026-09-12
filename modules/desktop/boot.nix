@@ -9,7 +9,7 @@
         enable = true;
         efiSupport = true;
         device = "nodev";
-        useOSProber = true;
+        useOSProber = false;
         configurationLimit = 10;
       };
       grub2-theme = {

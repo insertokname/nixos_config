@@ -30,3 +30,4 @@
 - [ ] obsidian TODO
 - [ ] alacritty config
 - [ ] a single function that produces an os so that the the name of a user is only used once in the config
+- [ ] google cloud and aws connections for claude code and opencode

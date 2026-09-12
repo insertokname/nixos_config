@@ -11,7 +11,7 @@
         import time
 
         from openrgb import OpenRGBClient
-        from openrgb.utils import DeviceType, OpenRGBDisconnected, RGBColor
+        from openrgb.utils import DeviceType, ModeColors, OpenRGBDisconnected, RGBColor
 
         HOST = "127.0.0.1"
         PORT = 6742
@@ -65,11 +65,34 @@
             meta = device.metadata
             return (device.name, meta.serial, meta.location)
 
-        def is_black(device):
-            return all(
-                led.red == 0 and led.green == 0 and led.blue == 0
-                for led in device.colors
-            )
+        # OpenRGB can't read a device's true current LED output for most
+        # controllers (most RGB protocols are write-only), so device.colors
+        # is just whatever OpenRGB last assumed, not a real readback. Devices
+        # detected as MODE_SPECIFIC/PER_LED often start with that cache
+        # already reporting black even though the physical LEDs are lit, so
+        # trusting it to skip "already off" devices meant they never actually
+        # got a command sent. Always drive an explicit mode/color instead of
+        # gating on this cache.
+        def turn_off(device):
+            modes_by_name = {mode.name.lower(): i for i, mode in enumerate(device.modes)}
+            if "off" in modes_by_name:
+                # An explicit Off mode is the most authoritative way to kill
+                # the lighting, and some devices (e.g. the G502) don't expose
+                # any color to set in that mode at all. Only send the mode
+                # change when needed: some devices (the G502 included) flash
+                # briefly whenever they receive a mode-change command at all,
+                # even a no-op one, so resending it every poll interval was
+                # causing a periodic flash instead of preventing one.
+                if device.active_mode != modes_by_name["off"]:
+                    device.set_mode("off")
+                return
+            active = device.modes[device.active_mode]
+            if active.name.lower() != "direct" and "direct" in modes_by_name:
+                device.set_mode("direct")
+                device.update()
+                active = device.modes[device.active_mode]
+            if active.color_mode != ModeColors.NONE:
+                device.set_color(BLACK)
 
         def enforce(client, seen, blacked):
             current = set()
@@ -82,10 +105,8 @@
                     log(f"found {what}: {device.name}")
                 if device.type == DeviceType.KEYBOARD:
                     continue
-                if is_black(device):
-                    continue
                 try:
-                    device.set_color(BLACK)
+                    turn_off(device)
                 except (OpenRGBDisconnected, OSError):
                     raise
                 except Exception as exc:

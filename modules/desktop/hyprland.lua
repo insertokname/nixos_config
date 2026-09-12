@@ -237,10 +237,46 @@ for _, entry in ipairs(dirs) do
     end
 end
 
-hl.bind(mainMod .. " + TAB", function()
-    hl.dispatch(hl.dsp.window.cycle_next())
+
+local function cycle_window(step, use_rotation)
+    local ws = hl.get_active_special_workspace() or hl.get_active_workspace()
+    if not ws then return end
+    if ws.tiled_layout == "monocle" then use_rotation = false end
+
+    local windows, cx, cy = {}, 0, 0
+    for _, w in pairs(hl.get_windows()) do
+        if w.workspace.id == ws.id then
+            table.insert(windows, w)
+            cx, cy = cx + w.at.x + w.size.x / 2, cy + w.at.y + w.size.y / 2
+        end
+    end
+    if #windows < 2 then return end
+    cx, cy = cx / #windows, cy / #windows
+
+    local function key(w)
+        if not use_rotation then return w.address end
+        local a = math.atan(w.at.x + w.size.x / 2 - cx, cy - w.at.y - w.size.y / 2)
+        return a < 0 and a + 2 * math.pi or a
+    end
+    table.sort(windows, function(a, b) return key(a) < key(b) end)
+
+    local active, idx = hl.get_active_window(), 1
+    for i, w in ipairs(windows) do
+        if active and w.address == active.address then
+            idx = i
+            break
+        end
+    end
+
+    local target = (idx - 1 + step) % #windows + 1
+    hl.dispatch(hl.dsp.focus({ window = windows[target] }))
     hl.dispatch(hl.dsp.window.bring_to_top())
-end)
+end
+
+hl.bind("SUPER + TAB", function() cycle_window(1, true) end)
+hl.bind("SUPER + SHIFT + TAB", function() cycle_window(-1, true) end)
+
+
 
 for i = 1, 10 do
     local key = i % 10
