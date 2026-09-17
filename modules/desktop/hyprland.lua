@@ -199,8 +199,11 @@ hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(screenshot))
 hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
 
-hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+hl.bind(mainMod .. " + S", hl.dsp.focus({ workspace = "name:Socials" }))
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "name:Socials" }))
+
+-- hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
+-- hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
 -- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 -- hl.bind(mainMod .. " + J", hl.dsp.layout("togglesojplit"))
@@ -208,10 +211,10 @@ hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:mag
 hl.bind(mainMod .. " + w", function()
     local ws = hl.get_active_special_workspace() or hl.get_active_workspace()
     if ws then
+        local selector = ws.special and ("special:" .. ws.name) or ("name:" .. ws.name)
         hl.workspace_rule({
-            workspace = ws.special and tostring(ws.name) or tostring(ws.id),
-            layout = ws
-                .tiled_layout == "monocle" and "master" or "monocle"
+            workspace = selector,
+            layout = ws.tiled_layout == "monocle" and "master" or "monocle"
         })
     end
 end)

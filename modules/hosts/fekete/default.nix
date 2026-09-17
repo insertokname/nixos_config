@@ -27,6 +27,7 @@
 
         "fekete"
         "homelab"
+        "homelab-client"
 
         "home-manager"
         "desktop"

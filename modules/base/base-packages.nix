@@ -12,9 +12,12 @@
       git
       neovim
 
-      moonlight
-
       firefox
     ];
+
+    environment.variables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+    };
   };
 }
