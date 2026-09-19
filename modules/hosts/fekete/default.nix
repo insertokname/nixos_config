@@ -35,6 +35,7 @@
         "office"
         "shell"
         "programming"
+        "gotgaymsonyophone"
       ];
     };
   };

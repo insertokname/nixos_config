@@ -4,6 +4,7 @@
       nemo-with-extensions
 
       nomacs
+      vlc
     ];
 
     services.gvfs.enable = true;
