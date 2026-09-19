@@ -14,6 +14,9 @@ hl.on("hyprland.start", function()
     hl.exec_cmd(
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE")
     hl.exec_cmd("systemctl --user start graphical-session.target")
+    hl.exec_cmd("firefox", { workspace = 3 })
+    hl.exec_cmd("vesktop", { workspace = "name:Socials" })
+    hl.exec_cmd("signal-desktop", { workspace = "name:Socials" })
 end)
 
 -- https://wiki.hypr.land/Configuring/Basics/Variables/
@@ -152,10 +155,10 @@ hl.config({
 
 hl.config({
     input = {
-        kb_layout    = "us",
-        kb_variant   = "",
+        kb_layout    = "us,ro",
+        kb_variant   = ",std",
         kb_model     = "",
-        kb_options   = "",
+        kb_options   = "grp:win_space_toggle",
         kb_rules     = "",
 
         follow_mouse = 1,
@@ -198,6 +201,7 @@ hl.bind(mainMod .. " + M",
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(screenshot))
 hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 
 hl.bind(mainMod .. " + S", hl.dsp.focus({ workspace = "name:Socials" }))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "name:Socials" }))

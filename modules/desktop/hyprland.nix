@@ -11,6 +11,11 @@
         xwayland.enable = true;
       };
 
+      # this should help UWSM startup times acording to some random reddit post
+      environment.variables = {
+        WAYLAND_DISPLAY = "wayland-1";
+      };
+
       xdg.sounds.enable = false;
       xdg.portal = {
         enable = true;
