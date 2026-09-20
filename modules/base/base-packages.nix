@@ -6,8 +6,10 @@
       htop
       wget
       openssl
-      unzip
+      rar
       zip
+      unzip
+      unrar
 
       git
       neovim

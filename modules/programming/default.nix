@@ -15,6 +15,7 @@
       gh
 
       pkgs-master.claude-code
+      pkgs-master.cursor-cli
 
       nodejs
 

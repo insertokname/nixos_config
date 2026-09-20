@@ -22,6 +22,10 @@
       url = "github:el-kurto/nix-dokploy";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvirt = {
+      url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
