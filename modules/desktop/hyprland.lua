@@ -71,6 +71,10 @@ hl.config({
     animations = {
         enabled = true,
     },
+
+    misc = {
+        disable_splash_rendering = true;
+    }
 })
 
 hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })

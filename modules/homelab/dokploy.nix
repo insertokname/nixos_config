@@ -9,7 +9,13 @@
 
     virtualisation.docker = {
       enable = true;
-      daemon.settings.live-restore = false;
+      daemon.settings = {
+        live-restore = false;
+        dns = [
+          "192.168.100.1"
+          "1.1.1.1"
+        ];
+      };
     };
 
     users.users.${username}.extraGroups = [ "docker" ];

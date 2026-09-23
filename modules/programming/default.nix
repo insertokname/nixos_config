@@ -34,6 +34,10 @@
         ]
       )
       pgadmin4-desktopmode
+
+      pkgs.netbird-ui
     ];
+
+    services.netbird.enable = true;
   };
 }
