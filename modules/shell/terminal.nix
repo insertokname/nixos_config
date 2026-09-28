@@ -1,5 +1,9 @@
 { self, ... }:
 {
+  flake.modules.nixos.shell = {
+    environment.enableAllTerminfo = true;
+  };
+
   flake.modules.homeManager.shell =
     { ... }:
     let

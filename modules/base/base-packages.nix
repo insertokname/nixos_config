@@ -3,7 +3,9 @@
 {
   flake.modules.nixos.base = { pkgs, ... }: {
     environment.systemPackages = with pkgs; [
+      gdu
       htop
+      btop
       wget
       openssl
       rar
@@ -15,6 +17,7 @@
       neovim
 
       firefox
+      qbittorrent
     ];
 
     environment.variables = {

@@ -1,7 +1,11 @@
 { ... }: {
   flake.modules.nixos.gotgaymsonyophone = { pkgs, ... }: {
     environment.systemPackages = [
-      pkgs.steam
+      pkgs.heroic
     ];
+
+    programs.steam = {
+      enable = true;
+    };
   };
 }
