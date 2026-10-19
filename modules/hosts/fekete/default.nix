@@ -27,6 +27,7 @@
 
         "fekete"
         "homelab"
+        "docker"
         "homelab-client"
 
         "home-manager"

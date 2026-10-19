@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.programming = { pkgs, username, ... }: {
+  flake.modules.nixos.docker = { pkgs, username, ... }: {
     environment.systemPackages = with pkgs; [
       docker-compose
     ];

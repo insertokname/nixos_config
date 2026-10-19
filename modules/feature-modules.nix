@@ -1,36 +1,47 @@
-# Given a username and a list of feature names, returns a list of NixOS
-# modules.
-#
-# For each feature name:
-#   if self.modules.nixos.{featureName} exists, it is returned
-#
-#   if self.modules.homeManager.{featureName} exists, it is added to a
-#   home-manager.users.{username}.imports and returned as a nixos module
-#
-# home-manager's NixOS module is add via the  "home-manager" feature
-# (from modules/home-manager.nix). If the "home-manager" feature
-# isn't present, any home manager part of listed features will be ignored.
-{ self, lib, ... }:
+{ self, lib, config, ... }:
 {
-  flake.lib.mkFeatureModules =
+  options.moduleDependencies = lib.mkOption {
+    type = lib.types.lazyAttrsOf (lib.types.listOf lib.types.str);
+    default = { };
+    description = "Map from feature name to the features it requires.";
+  };
+
+  config.flake.lib.mkFeatureModules =
     { username, features }:
     let
-      exists = n: lib.hasAttr n self.modules.nixos || lib.hasAttr n self.modules.homeManager;
-      checked = map (
-        n: if exists n then n else throw "mkFeatureModules: unknown feature '${n}'"
+      nixosMods = self.modules.nixos;
+      hmMods = self.modules.homeManager or { };
+
+      exists = n: nixosMods ? ${n} || hmMods ? ${n};
+      depsOf = n: lib.unique (config.moduleDependencies.${n} or [ ]);
+
+      unknown = lib.filter (n: !exists n) features;
+
+      unknownDepKeys = lib.filter (n: !exists n) (lib.attrNames config.moduleDependencies);
+
+      missing = lib.concatMap (
+        n: map (d: "  '${n}' requires '${d}', which is not enabled")
+          (lib.filter (d: !lib.elem d features) (depsOf n))
       ) features;
 
-      nixosFeatures = lib.filter (n: lib.hasAttr n self.modules.nixos) checked;
+      checked =
+        if unknown != [ ] then
+          throw "mkFeatureModules: unknown feature(s): ${lib.concatStringsSep ", " unknown}"
+        else if unknownDepKeys != [ ] then
+          throw "mkFeatureModules: > declared for unknown feature(s): ${lib.concatStringsSep ", " unknownDepKeys}"
+        else if missing != [ ] then
+          throw "mkFeatureModules: unmet dependencies:\n${lib.concatStringsSep "\n" missing}"
+        else
+          features;
+
+      nixosFeatures = lib.filter (n: nixosMods ? ${n}) checked;
 
       isHomeManagerInstalled = lib.elem "home-manager" nixosFeatures;
       homeManagerFeatures =
-        if isHomeManagerInstalled then
-          lib.filter (n: lib.hasAttr n self.modules.homeManager) checked
-        else
-          [ ];
+        if isHomeManagerInstalled then lib.filter (n: hmMods ? ${n}) checked else [ ];
     in
-    (map (n: self.modules.nixos.${n}) nixosFeatures)
+    (map (n: nixosMods.${n}) nixosFeatures)
     ++ lib.optional (homeManagerFeatures != [ ]) {
-      home-manager.users.${username}.imports = map (n: self.modules.homeManager.${n}) homeManagerFeatures;
+      home-manager.users.${username}.imports = map (n: hmMods.${n}) homeManagerFeatures;
     };
 }

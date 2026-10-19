@@ -1,4 +1,10 @@
 { inputs, ... }: {
+  moduleDependencies.desktop = [
+    "base"
+    "shell"
+    "home-manager"
+  ];
+
   flake.modules.nixos.desktop =
     { pkgs, ... }:
     {

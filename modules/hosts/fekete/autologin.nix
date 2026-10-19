@@ -1,5 +1,8 @@
 { ... }:
 {
+  # autologin into the hyprland-uwsm session from sddm so basically desktop is required
+  moduleDependencies.fekete = [ "desktop" ];
+
   flake.modules.nixos.fekete = { pkgs, ... }: {
     services.displayManager.autoLogin = {
       enable = true;

@@ -1,5 +1,7 @@
 { inputs, ... }:
 {
+  moduleDependencies.homelab = [ "docker" ];
+
   flake.modules.nixos.homelab = { config, ... }: {
     imports = [ inputs.nix-dokploy.nixosModules.default ];
 
