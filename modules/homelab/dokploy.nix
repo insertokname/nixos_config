@@ -1,36 +1,10 @@
 { inputs, ... }:
 {
-  flake.modules.nixos.homelab = { pkgs, username, ... }: {
+  flake.modules.nixos.homelab = { config, ... }: {
     imports = [ inputs.nix-dokploy.nixosModules.default ];
 
-    environment.systemPackages = with pkgs; [
-      docker-compose
-    ];
-
-    virtualisation.docker = {
-      enable = true;
-      daemon.settings = {
-        live-restore = false;
-        dns = [
-          "192.168.100.1"
-          "1.1.1.1"
-        ];
-      };
-    };
-
-    users.users.${username}.extraGroups = [ "docker" ];
-
-    networking.firewall = {
-      allowedTCPPorts = [
-        80
-        443
-      ];
-      allowedUDPPorts = [
-        80
-        443
-      ];
-      interfaces.docker_gwbridge.allowedTCPPorts = [ 8888 ];
-    };
+    # dokploy uses swarm and they are not compatible
+    virtualisation.docker.daemon.settings.live-restore = false;
 
     services.dokploy = {
       enable = true;
@@ -42,30 +16,38 @@
       environment = {
         TZ = "Europe/Bucharest";
       };
+    };
 
-      traefik = {
-        extraArgs = [
-          "--add-host=host.docker.internal:host-gateway"
-          "-v=/var/lib/secrets/ate-htpasswd:/etc/traefik/ate-htpasswd:ro"
-        ];
-        dynamicConfig.ate.http = {
-          routers.ate = {
-            rule = "Host(`ate.insertokname.com`)";
-            entryPoints = [ "web" ];
-            middlewares = [ "redirect-to-https" ];
-            service = "ate";
-          };
-          routers.ate-secure = {
-            rule = "Host(`ate.insertokname.com`)";
-            entryPoints = [ "websecure" ];
-            tls.certResolver = "letsencrypt";
-            middlewares = [ "ate-auth" ];
-            service = "ate";
-          };
-          middlewares.ate-auth.basicAuth.usersFile = "/etc/traefik/ate-htpasswd";
-          services.ate.loadBalancer.servers = [ { url = "http://host.docker.internal:8888"; } ];
-        };
-      };
+    # upstream runs dokploy-traefik from a script that hardcodes -p 80:80
+    # -p 443:443, but the main traefik owns those (see traefik.nix), so run the
+    # container ourselves and publish it on loopback only
+    systemd.services.dokploy-traefik.enable = false;
+
+    virtualisation.oci-containers.containers.dokploy-traefik = {
+      image = config.services.dokploy.traefik.image;
+      autoStart = false;
+      networks = [ "dokploy-network" ];
+      ports = [
+        "127.0.0.1:10080:80"
+        "127.0.0.1:10443:443"
+      ];
+      volumes = [
+        "/var/run/docker.sock:/var/run/docker.sock"
+        "${config.services.dokploy.dataDir}/traefik/traefik.yml:/etc/traefik/traefik.yml"
+        "${config.services.dokploy.dataDir}/traefik/dynamic:/etc/dokploy/traefik/dynamic"
+      ];
+    };
+
+    systemd.services.docker-dokploy-traefik = {
+      after = [ "dokploy-stack.service" ];
+      requires = [ "dokploy-stack.service" ];
+    };
+
+    # dokploy writes traefik.yml on its first start, so start the container
+    # once it exists instead of letting docker create a directory in its place
+    systemd.paths.docker-dokploy-traefik = {
+      wantedBy = [ "multi-user.target" ];
+      pathConfig.PathExists = "${config.services.dokploy.dataDir}/traefik/traefik.yml";
     };
   };
 }

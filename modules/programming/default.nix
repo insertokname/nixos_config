@@ -41,5 +41,13 @@
     ];
 
     services.netbird.enable = true;
+
+    # netbird rewrites /etc/resolv.conf to its own resolver on wt0, which
+    # containers can't reach (queries arrive on the docker bridges and get
+    # firewalled), so pin docker to a public resolver instead
+    virtualisation.docker.daemon.settings.dns = [
+      "1.1.1.1"
+      "1.0.0.1"
+    ];
   };
 }
