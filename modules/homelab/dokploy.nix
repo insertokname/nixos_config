@@ -29,6 +29,7 @@
         80
         443
       ];
+      interfaces.docker_gwbridge.allowedTCPPorts = [ 8888 ];
     };
 
     services.dokploy = {
@@ -41,7 +42,30 @@
       environment = {
         TZ = "Europe/Bucharest";
       };
+
+      traefik = {
+        extraArgs = [
+          "--add-host=host.docker.internal:host-gateway"
+          "-v=/var/lib/secrets/ate-htpasswd:/etc/traefik/ate-htpasswd:ro"
+        ];
+        dynamicConfig.ate.http = {
+          routers.ate = {
+            rule = "Host(`ate.insertokname.com`)";
+            entryPoints = [ "web" ];
+            middlewares = [ "redirect-to-https" ];
+            service = "ate";
+          };
+          routers.ate-secure = {
+            rule = "Host(`ate.insertokname.com`)";
+            entryPoints = [ "websecure" ];
+            tls.certResolver = "letsencrypt";
+            middlewares = [ "ate-auth" ];
+            service = "ate";
+          };
+          middlewares.ate-auth.basicAuth.usersFile = "/etc/traefik/ate-htpasswd";
+          services.ate.loadBalancer.servers = [ { url = "http://host.docker.internal:8888"; } ];
+        };
+      };
     };
   };
-
 }

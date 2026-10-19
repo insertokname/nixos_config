@@ -36,6 +36,7 @@
         "shell"
         "programming"
         "gotgaymsonyophone"
+        "flatpak"
       ];
     };
   };

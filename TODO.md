@@ -1,4 +1,7 @@
 - [x] remote desktop
+- [ ] modules depending on other modules
+  - [ ] make a separate "docker" module
+  - [ ] use traefik pointing at traefik to configure on system services instead of the dokploy mess
 - [ ] emoji fonts
 - [ ] ssh
 - [ ] kali wsl

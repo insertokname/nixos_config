@@ -3,6 +3,7 @@
     environment.systemPackages = [
       pkgs-stable.onlyoffice-desktopeditors
       pkgs.obs-studio
+      pkgs-stable.thunderbird
     ];
   };
 }

@@ -12,6 +12,8 @@
     };
 
     environment.systemPackages = with pkgs; [
+      gcc
+
       gh
 
       pkgs-master.claude-code
